@@ -5,4 +5,6 @@ public class MoneyBox {
     private int tenPeso;
     private int fiftyPeso;
     private int hundredPeso;
+
+    
 }
