@@ -18,7 +18,20 @@ public class Item {
         this.calories = calories;
         this.quantity = quantity;
     }
-    
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setPrice(int price) {
+        this.price = price;
+    }
+    public void setCalories(float calories) {
+        this.calories = calories;
+    }
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     public String getName() {
         return name;
     }
@@ -30,15 +43,5 @@ public class Item {
     }
     public int getQuantity() {
         return quantity;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void setPrice(int price) {
-        this.price = price;
-    }
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 }
