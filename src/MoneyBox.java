@@ -1,48 +1,66 @@
 public class MoneyBox {
     
-    private int onePeso;
-    private int fivePeso;
-    private int tenPeso;
-    private int fiftyPeso;
-    private int hundredPeso;
+    private Cash onePeso = new Cash(1);
+    private Cash fivePeso = new Cash(5);
+    private Cash tenPeso = new Cash(10);
+    private Cash fiftyPeso = new Cash(50);
+    private Cash hundredPeso = new Cash(100);
 
-    public void setOnePeso(int onePeso) {
-        this.onePeso = onePeso;
+    public void setOnePeso(int quantity) {
+        this.onePeso.setQuantity(quantity);
     }
-    public void setFivePeso(int fivePeso) {
-        this.fivePeso = fivePeso;
+    public void setFivePeso(int quantity) {
+        this.fivePeso.setQuantity(quantity);
     }
-    public void setTenPeso(int tenPeso) {
-        this.tenPeso = tenPeso;
+    public void setTenPeso(int quantity) {
+        this.tenPeso.setQuantity(quantity);
     }
-    public void setFiftyPeso(int fiftyPeso) {
-        this.fiftyPeso = fiftyPeso;
+    public void setFiftyPeso(int quantity) {
+        this.fiftyPeso.setQuantity(quantity);
     }
-    public void setHundredPeso(int hundredPeso) {
-        this.hundredPeso = hundredPeso;
+    public void setHundredPeso(int quantity) {
+        this.hundredPeso.setQuantity(quantity);
     }
 
-    public int getOnePeso() {
+    public Cash getOnePeso() {
         return onePeso;
     }
-    public int getFivePeso() {
+    public Cash getFivePeso() {
         return fivePeso;
     }
-    public int getTenPeso() {
+    public Cash getTenPeso() {
         return tenPeso;
     }
-    public int getFiftyPeso() {
+    public Cash getFiftyPeso() {
         return fiftyPeso;
     }
-    public int getHundredPeso() {
+    public Cash getHundredPeso() {
         return hundredPeso;
     }
 
-    public int collectMoney() {
+
+    public void collectPayment(int payment) {
+        //collect payment and distribute each denomination
+    }
+
+    public int giveChange(int payment, int price) {
+        //calculate change and return change
+
+        return 0;
+    }
+
+    public int collectProft() {
 
         int earning;
 
-        earning = (getOnePeso()) + (getFivePeso() * 5) + (getTenPeso() * 10) + (getFiftyPeso() * 50) + (getHundredPeso() * 100);
+        earning = onePeso.getTotal() + fivePeso.getTotal() + tenPeso.getTotal() + fiftyPeso.getTotal() + hundredPeso.getTotal();
+
+        onePeso.setQuantity(0);
+        fivePeso.setQuantity(0);
+        tenPeso.setQuantity(0);
+        fiftyPeso.setQuantity(0);
+        hundredPeso.setQuantity(0);
+
 
         return earning;
     }

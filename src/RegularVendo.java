@@ -42,9 +42,13 @@ public class RegularVendo {
         return false;
     }
 
-    public int retrieveMoney() {
+    public int retrieveProfit() {
 
-        return money.collectMoney();
+        return money.collectProft();
+    }
+
+    public void takePayment(int payment) {
+        
     }
 
 }
