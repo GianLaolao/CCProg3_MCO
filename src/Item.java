@@ -6,12 +6,6 @@ public class Item {
     private float calories;
     private int quantity;
 
-    public Item (String name, int price, float calories) {
-        this.name = name;
-        this.price = price;
-        this.calories = calories;
-    }
-
      public Item (String name, int price, float calories, int quantity) {
         this.name = name;
         this.price = price;

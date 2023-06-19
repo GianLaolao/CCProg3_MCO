@@ -9,19 +9,20 @@ public class RegularVendo {
     public void addItem(Item item) {
         this.item.add(item);
     }
-    public void addMoney(int quanity, int type) {
+    
+    public void addMoney(int quantity, int type) {
         
         switch(type) {
             case 1:
-                //code for adding one peso 
+                money.getOnePeso().setQuantity(quantity);
             case 2:
-                //code for adding five peso 
+                money.getFivePeso().setQuantity(quantity);
             case 3: 
-                //code for adding ten peso 
+                money.getTenPeso().setQuantity(quantity);
             case 4:
-                //code for adding fifty peso 
+                money.getFiftyPeso().setQuantity(quantity);
             case 5: 
-                //code for adding hundred peso 
+                money.getHundredPeso().setQuantity(quantity);
         }
     }
 
@@ -49,6 +50,7 @@ public class RegularVendo {
 
     public void takePayment(int payment) {
         
+        //takes payment
     }
 
 }
