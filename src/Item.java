@@ -4,7 +4,7 @@ public class Item {
     private String name;
     private int price;
     private float calories;
-    private int quantity;
+    private int quantity = 0;
     private int sold = 0;
 
      public Item (String name, int price, float calories, int quantity) {

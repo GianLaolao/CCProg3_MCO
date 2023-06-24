@@ -49,7 +49,7 @@ public class MoneyBox {
         return 0;
     }
 
-    public int collectProft() {
+    public int collectProfit() {
 
         int earning;
 

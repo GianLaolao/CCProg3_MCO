@@ -69,6 +69,14 @@ public class VendingMachine {
         }
     }
     public int retrieveProfit() {
-        return money.collectProft();
+        return money.collectProfit();
     }
+
+    public RegularVendo getRegular() {
+        return regular;
+    }
+    public MoneyBox getMoney() {
+        return money;
+    }
+
 }
