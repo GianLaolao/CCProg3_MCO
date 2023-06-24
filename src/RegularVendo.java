@@ -4,17 +4,7 @@ import java.util.*;
 public class RegularVendo {
 
     private ArrayList<Item> item = new ArrayList<>();
-    
-    private Item searchItem(String itemName) {
-
-        for (Item a : item) {
-            if (a.getName().contains(itemName))
-                return a;
-        }
-
-        return null;
-    }
-    
+        
     public boolean addItem(Item product) {
         if (this.item.size() < 8) {
             this.item.add(product);
@@ -22,17 +12,28 @@ public class RegularVendo {
         }
          return false;   
     }
-    
 
     public ArrayList<Item> getItems() {
         return item;
     }
 
-    public Item getItem(String itemName) {
-        return searchItem(itemName);
+    public boolean restockItem(int quantity, int slot) {
+
+        Item item = getItem(slot);
+
+        if (10 - item.getQuantity() >= quantity) {
+            item.addQuantity(quantity);
+            return true;
+        }
+            
+        return false;
+    }
+
+    public Item getItem(int slot) {
+        return item.get(slot);
     }
   
-    public Item dispenseItem(int itemNum, int quantity) {
+    public Item dispenseItem(int slot, int quantity) {
 
         //code for successful dispense of item
 

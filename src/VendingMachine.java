@@ -3,18 +3,13 @@ public class VendingMachine {
     private RegularVendo regular = null;
     private MoneyBox money = new MoneyBox();
     
-
-    private Item searchItem(String itemName) {
-        return regular.getItem(itemName);
-    }
-
-
     public void createRegularVendo() {
         regular = new RegularVendo();
     }
 
-    public void transaction(int payment) {
-        //code here to take payment
+    public void transaction(int payment, int slot) {
+       
+        //take payment, calculate change, give change
     }
 
     public Item dispenseItem(int itemNum, int quantity) {
@@ -43,14 +38,9 @@ public class VendingMachine {
         return regular.addItem(item);
     }
 
-    public boolean restockItem(int quantity, String itemName) {
-        Item item = searchItem(itemName);
-
-        if (10 - item.getQuantity() >= quantity) {
-            item.addQuantity(quantity);
-            return true;
-        }
-        return false;
+    public boolean restockItem(int quantity, int slot) {
+        
+        return restockItem(quantity, slot);
     }
 
     public void addMoney(int quantity, int type) {
