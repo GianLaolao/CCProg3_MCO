@@ -38,12 +38,7 @@ public class MoneyBox {
         return hundredPeso;
     }
 
-
-    public void collectPayment(int payment) {
-        //collect payment and distribute each denomination
-    }
-
-    public int giveChange(int payment, int price) {
+    public int produceChange(int payment, int price) {
         //calculate change and return change
 
         return 0;

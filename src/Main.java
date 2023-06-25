@@ -89,6 +89,7 @@ public class Main {
         main.displayItems(item);
 
         System.out.println("Enter Slot Number");
+        
 
         return 0;
     }
@@ -107,17 +108,28 @@ public class Main {
     public void addItem(Scanner sc, VendingMachine vendo) {
 
         String name;
-        int price;
+        int price, quantity;
         float calories;
 
-        System.out.println("Name, Price, Calories");
+        System.out.print("\n\tItem Name: ");
         name = sc.nextLine();
+        System.out.print("\n\tItem Price: ");
         price = sc.nextInt();
-        sc.nextLine();
+        System.out.print("\n\tItem Calories: ");
         calories = sc.nextFloat();
-        sc.nextLine();
+        System.out.print("\n\tItem Quantity: ");
+        quantity = sc.nextInt();
 
-        vendo.addItem(name, price, calories);
+        if(vendo.addItem(name, price, calories, quantity)) {
+            System.out.println("\tItem Added!");
+        }
+        else {
+            System.out.println("\tItem Slots FULL!");
+        }
+            
+
+        
+
     }
 
     public void maintenanceFeatures (VendingMachine vendo, Main main) {
@@ -125,18 +137,34 @@ public class Main {
         int choice;
         Scanner sc = new Scanner (System.in);
 
-        System.out.println("[1] Add Item");
-        System.out.println("[2] Restock Item");
-        System.out.println();
-        System.out.println();
 
-        switch(choice) {
-            case 1:
+            System.out.println("\tMAINTENANCE:\n");
+            System.out.println("------------------------");
+            System.out.println("\t[1] Add Item");
+            System.out.println("\t[2] Remove Item");
+            System.out.println("\t[3] Restock Item");
+            System.out.println("\t[4] Set Price");
+            System.out.println("\t[5] Collect Profit");
+            System.out.println("\t[6] Add Change");
+            System.out.println("\t[7] Exit");
+            choice = sc.nextInt();
+            sc.nextLine();
 
-            case 2:
+            switch(choice) {
+                case 1:
+                    main.addItem(sc, vendo);
+                case 2:
 
-            case 3:
-        }
+                case 3:
+
+                case 4:
+
+                case 5:
+
+                case 6:
+
+                case 7:
+            }
     }
 
 }

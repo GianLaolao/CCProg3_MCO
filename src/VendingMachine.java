@@ -31,11 +31,9 @@ public class VendingMachine {
         return regular.addItem(item);
     }
 
-    public boolean addItem(String name, int price, float calories) {
-        
-        Item item = new Item(name, price, calories);
-        
-        return regular.addItem(item);
+    public boolean removeItem(int slot) {
+
+        return false;
     }
 
     public boolean restockItem(int quantity, int slot) {

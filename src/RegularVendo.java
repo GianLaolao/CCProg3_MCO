@@ -10,8 +10,14 @@ public class RegularVendo {
             this.item.add(product);
             return true;
         }
-         return false;   
+        return false;   
     }
+    
+    public boolean removeItem(int slot) {
+
+        return false;
+    }
+
 
     public ArrayList<Item> getItems() {
         return item;
