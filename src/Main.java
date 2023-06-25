@@ -89,7 +89,7 @@ public class Main {
         main.displayItems(item);
 
         System.out.println("Enter Slot Number");
-        
+
 
         return 0;
     }
@@ -126,10 +126,28 @@ public class Main {
         else {
             System.out.println("\tItem Slots FULL!");
         }
-            
+    }
 
+    public void removeItem (Scanner sc, VendingMachine vendo, Main main) {
         
+        int slot;
+        ArrayList<Item> item = new ArrayList<>();
 
+        item = vendo.getRegular().getItems();
+
+        do {    
+            main.displayItems(item);
+            slot = sc.nextInt();
+
+            if (slot < 1 || slot >= item.size()) {
+                System.out.println("\tInvalid Choice");
+            }
+            else{
+                vendo.removeItem(slot);
+            }
+
+        } while (slot < 1 || slot >= item.size());
+           
     }
 
     public void maintenanceFeatures (VendingMachine vendo, Main main) {
@@ -154,9 +172,9 @@ public class Main {
                 case 1:
                     main.addItem(sc, vendo);
                 case 2:
-
+                    main.removeItem(sc, vendo, main);
                 case 3:
-
+                    
                 case 4:
 
                 case 5:
