@@ -15,49 +15,55 @@ public class Main {
             System.out.println("         [2] Test a Vending Machine");
             System.out.println("         [3] Exit");
             choice = sc.nextInt();
+            sc.nextLine();
 
             switch(choice) {
                 case 1:
-                    main.createVendingMachine(vendo);
+                    main.createVendingMachine(vendo, sc);
                     break;
                 case 2: 
                     if (vendo.getRegular() != null)
-                        main.vendingFeatures(vendo, main);
+                        main.testVendo(vendo, main);
                     else
                         System.out.println("\tNo Vending Machine to Test");
                     break;
                 case 3:
                     System.out.println("\tExiting...");
                     break;
+                default:
+                    System.out.println("\tInvalid Input");
+                    break;
             }
         } while (choice != 3);
     
     }
 
-    public void createVendingMachine(VendingMachine vendo) {
+    public void createVendingMachine(VendingMachine vendo, Scanner sc) {
         
         int choice;
-        Scanner sc = new Scanner(System.in);
 
         do {
             System.out.println("Choose Vending Machine: [1] Regular Vending Machine");
             System.out.println("                        [2] Coming Soon...");
             System.out.println("                        [3] Back to Options");
             choice = sc.nextInt();
+            sc.nextLine();
 
             switch(choice) {
                 case 1:
                     vendo.createRegularVendo();
+                    break;
                 case 2:
                     System.out.println("\tCOMING SOON");
+                    break;
                 case 3: 
                     System.out.println("\tReturning to Options...");
+                    break;
                 default:
                     System.out.println("\tInvalid Option...");
+                    break;
             }
         } while (choice < 1 || choice > 3);
-
-        sc.close();
     }
 
     public void testVendo(VendingMachine vendo, Main main) {
@@ -65,14 +71,17 @@ public class Main {
         int choice;
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("[1] Test Vending Features");
-        System.out.println("[2] Maintenance Features");
-        System.out.println("[3] Exit");
+        System.out.println("\tVending Machine Testing");
+        System.out.println("------------------------------------");
+        System.out.println("\t[1] Test Vending Features");
+        System.out.println("\t[2] Maintenance Features");
+        System.out.println("\t[3] Exit");
         choice = sc.nextInt();
+        sc.nextLine();
 
         switch(choice) {
             case 1:
-                main.vendingFeatures(vendo, main);
+                main.vendingFeatures(vendo, main, sc);
                 break;
             case 2: 
                 main.maintenanceFeatures(vendo, main);
@@ -89,7 +98,7 @@ public class Main {
         sc.close();
     }
 
-    public int vendingFeatures (VendingMachine vendo, Main main) {
+    public int vendingFeatures (VendingMachine vendo, Main main, Scanner sc) {
 
         Item[] item;
         item = vendo.getRegular().getItems();
@@ -98,19 +107,24 @@ public class Main {
         main.displayItems(item);
 
         System.out.println("Enter Slot Number");
-
+        
 
         return 0;
     }
 
     public void displayItems(Item[] item) {
 
-        for (int i = 0; i < item.length; i++) {
-            System.out.println((i+1) + "Item: " + item[i].getName());
-            System.out.println("\tPrice: " + item[i].getPrice());
-            System.out.println("\tCalories: " + item[i].getCalories());
-            System.out.println("\tAvaliable: " + item[i].getQuantity());
-            System.out.print("\n");
+        if (item == null) {
+            System.out.println("\tVending Machine Empty");
+        }
+        else {
+            for (int i = 0; i < item.length; i++) {
+                System.out.println((i+1) + "Item: " + item[i].getName());
+                System.out.println("\tPrice: " + item[i].getPrice());
+                System.out.println("\tCalories: " + item[i].getCalories());
+                System.out.println("\tAvaliable: " + item[i].getQuantity());
+                System.out.print("\n");
+            }
         }
     }
 
@@ -122,14 +136,18 @@ public class Main {
 
         System.out.print("\n\tItem Name: ");
         name = sc.nextLine();
-        System.out.print("\n\tItem Price: ");
+        System.out.print("\tItem Price: ");
         price = sc.nextInt();
-        System.out.print("\n\tItem Calories: ");
+        System.out.print("\tItem Calories: ");
         calories = sc.nextFloat();
-        System.out.print("\n\tItem Quantity: ");
+        System.out.print("\tItem Quantity: ");
         quantity = sc.nextInt();
+        sc.nextLine();
 
-        if(vendo.addItem(name, price, calories, quantity)) {
+        if (quantity < 1 || quantity > 10) {
+            System.out.println("\tQuantity should be 1 to 10");
+        }
+        else if(vendo.addItem(name, price, calories, quantity)) {
             System.out.println("\tItem Added!");
         }
         else {
@@ -177,7 +195,7 @@ public class Main {
                 System.out.println("Free Space: " + (10 - item[slot].getQuantity()));
                 System.out.println("Input Quantity: ");
                 quantity = sc.nextInt();
-              //vendo.restockItem(;
+                vendo.restockItem(quantity, slot);
             }
 
         } while (slot < 1 || slot >= item.length);
@@ -238,8 +256,8 @@ public class Main {
         Scanner sc = new Scanner (System.in);
 
 
-            System.out.println("\tMAINTENANCE:\n");
-            System.out.println("------------------------");
+            System.out.println("\tMAINTENANCE:");
+            System.out.println("-----------------------------");
             System.out.println("\t[1] Add Item");
             System.out.println("\t[2] Remove Item");
             System.out.println("\t[3] Restock Item");
