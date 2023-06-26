@@ -150,6 +150,79 @@ public class Main {
            
     }
 
+    public void restockItem (Scanner sc, VendingMachine vendo, Main main) {
+
+        int slot, quantity;
+        ArrayList<Item> item = new ArrayList<>();
+
+        item = vendo.getRegular().getItems();
+
+        do {    
+            main.displayItems(item);
+            slot = sc.nextInt();
+
+            if (slot < 1 || slot >= item.size()) {
+                System.out.println("\tInvalid Choice");
+            }
+            else{
+                System.out.println("Free Space: " + (10 - item.get(slot).getQuantity()));
+                System.out.println("Input Quantity: ");
+                quantity = sc.nextInt();
+                vendo.restockItem(;
+            }
+
+        } while (slot < 1 || slot >= item.size());
+           
+    }
+
+    public void setPrice (Scanner sc, VendingMachine vendo, Main main) {
+
+        int slot, quantity;
+        ArrayList<Item> item = new ArrayList<>();
+
+        item = vendo.getRegular().getItems();
+
+        do {    
+            main.displayItems(item);
+            slot = sc.nextInt();
+
+
+
+
+        } while();
+
+    }
+
+    public void collectProfit(Scanner sc, VendingMachine vendo, Main main) {
+
+        int profit = vendo.retrieveProfit();
+        
+        System.out.println("Profit Collected: " + profit);
+    }
+
+    public void addChange(Scanner sc, VendingMachine vendo, Main main) {
+
+        int choice;
+
+        System.out.println("Choose Denomination: ");
+        System.out.println("[1] One Peso");
+        System.out.println("[2] Five Peso");
+        System.out.println("[3] Ten Peso");
+        System.out.println("[4] Twenty Peso");
+        System.out.println("[5] Fifty Peso");
+        System.out.println("[6] Hundred Peso");
+        System.out.println("[0] Exit");
+        choice = sc.nextInt();
+
+        switch(choice){
+            case 1:
+
+            case 2:
+
+            case 3: 
+        }
+    }
+
     public void maintenanceFeatures (VendingMachine vendo, Main main) {
 
         int choice;
@@ -174,13 +247,13 @@ public class Main {
                 case 2:
                     main.removeItem(sc, vendo, main);
                 case 3:
-                    
+                    main.restockItem(sc, vendo, main);
                 case 4:
-
+                    main.setPrice(sc, vendo, main)
                 case 5:
-
+                    main.collectProfit(sc, vendo, main);
                 case 6:
-
+                    main.addChange(sc, vendo, main);
                 case 7:
             }
     }

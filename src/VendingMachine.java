@@ -1,7 +1,11 @@
+import java.util.*;
+
 public class VendingMachine {
     
     private RegularVendo regular = null;
+    private ArrayList<Record> records = new ArrayList<>();
     private MoneyBox money = new MoneyBox();
+    private float totalSales;
     
     public void createRegularVendo() {
         regular = new RegularVendo();
@@ -65,6 +69,12 @@ public class VendingMachine {
     }
     public MoneyBox getMoney() {
         return money;
+    }
+    public ArrayList<Record> getRecords() {
+        return records;
+    }
+    public float getTotalSales() {
+        return totalSales;
     }
 
 }
