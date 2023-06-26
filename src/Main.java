@@ -19,11 +19,16 @@ public class Main {
             switch(choice) {
                 case 1:
                     main.createVendingMachine(vendo);
+                    break;
                 case 2: 
                     if (vendo.getRegular() != null)
                         main.vendingFeatures(vendo, main);
+                    else
+                        System.out.println("\tNo Vending Machine to Test");
+                    break;
                 case 3:
                     System.out.println("\tExiting...");
+                    break;
             }
         } while (choice != 3);
     
@@ -68,12 +73,16 @@ public class Main {
         switch(choice) {
             case 1:
                 main.vendingFeatures(vendo, main);
+                break;
             case 2: 
                 main.maintenanceFeatures(vendo, main);
+                break;
             case 3:
                 System.out.println("\tExiting...");
+                break;
             default:
                 System.out.println("\tInvalid Option...");
+                break;
             
         }
 
@@ -82,7 +91,7 @@ public class Main {
 
     public int vendingFeatures (VendingMachine vendo, Main main) {
 
-        ArrayList<Item> item = new ArrayList<>();
+        Item[] item;
         item = vendo.getRegular().getItems();
         int slot;
 
@@ -94,13 +103,13 @@ public class Main {
         return 0;
     }
 
-    public void displayItems(ArrayList<Item> item) {
+    public void displayItems(Item[] item) {
 
-        for (int i = 0; i < item.size(); i++) {
-            System.out.println((i+1) + "Item: " + item.get(i).getName());
-            System.out.println("\tPrice: " + item.get(i).getPrice());
-            System.out.println("\tCalories: " + item.get(i).getCalories());
-            System.out.println("\tAvaliable: " + item.get(i).getQuantity());
+        for (int i = 0; i < item.length; i++) {
+            System.out.println((i+1) + "Item: " + item[i].getName());
+            System.out.println("\tPrice: " + item[i].getPrice());
+            System.out.println("\tCalories: " + item[i].getCalories());
+            System.out.println("\tAvaliable: " + item[i].getQuantity());
             System.out.print("\n");
         }
     }
@@ -131,7 +140,7 @@ public class Main {
     public void removeItem (Scanner sc, VendingMachine vendo, Main main) {
         
         int slot;
-        ArrayList<Item> item = new ArrayList<>();
+        Item[] item;
 
         item = vendo.getRegular().getItems();
 
@@ -139,21 +148,21 @@ public class Main {
             main.displayItems(item);
             slot = sc.nextInt();
 
-            if (slot < 1 || slot >= item.size()) {
+            if (slot < 1 || slot >= item.length) {
                 System.out.println("\tInvalid Choice");
             }
             else{
                 vendo.removeItem(slot);
             }
 
-        } while (slot < 1 || slot >= item.size());
+        } while (slot < 1 || slot >= item.length);
            
     }
 
     public void restockItem (Scanner sc, VendingMachine vendo, Main main) {
 
         int slot, quantity;
-        ArrayList<Item> item = new ArrayList<>();
+        Item[] item;
 
         item = vendo.getRegular().getItems();
 
@@ -161,24 +170,24 @@ public class Main {
             main.displayItems(item);
             slot = sc.nextInt();
 
-            if (slot < 1 || slot >= item.size()) {
+            if (slot < 1 || slot >= item.length) {
                 System.out.println("\tInvalid Choice");
             }
             else{
-                System.out.println("Free Space: " + (10 - item.get(slot).getQuantity()));
+                System.out.println("Free Space: " + (10 - item[slot].getQuantity()));
                 System.out.println("Input Quantity: ");
                 quantity = sc.nextInt();
-                vendo.restockItem(;
+              //vendo.restockItem(;
             }
 
-        } while (slot < 1 || slot >= item.size());
+        } while (slot < 1 || slot >= item.length);
            
     }
 
     public void setPrice (Scanner sc, VendingMachine vendo, Main main) {
 
         int slot, quantity;
-        ArrayList<Item> item = new ArrayList<>();
+        Item[] item;
 
         item = vendo.getRegular().getItems();
 
@@ -189,7 +198,7 @@ public class Main {
 
 
 
-        } while();
+        } while(slot < 1 || slot >= item.length);
 
     }
 
@@ -244,16 +253,22 @@ public class Main {
             switch(choice) {
                 case 1:
                     main.addItem(sc, vendo);
+                    break;
                 case 2:
                     main.removeItem(sc, vendo, main);
+                    break;
                 case 3:
                     main.restockItem(sc, vendo, main);
+                    break;
                 case 4:
-                    main.setPrice(sc, vendo, main)
+                    main.setPrice(sc, vendo, main);
+                    break;
                 case 5:
                     main.collectProfit(sc, vendo, main);
+                    break;
                 case 6:
                     main.addChange(sc, vendo, main);
+                    break;
                 case 7:
             }
     }

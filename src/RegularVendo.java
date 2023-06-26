@@ -1,13 +1,15 @@
 
-import java.util.*;
-
 public class RegularVendo {
 
-    private ArrayList<Item> item = new ArrayList<>();
+    private Item[] item = new Item[8];
         
     public boolean addItem(Item product) {
-        if (this.item.size() < 8) {
-            this.item.add(product);
+        if (item.length < 8) {
+            for(int i = 0; i < item.length; i++){
+                if (item[i] == null){
+                    item[i] = product;
+                }
+            }
             return true;
         }
         return false;   
@@ -15,11 +17,13 @@ public class RegularVendo {
     
     public boolean removeItem(int slot) {
 
+        //TODO
+
         return false;
     }
 
 
-    public ArrayList<Item> getItems() {
+    public Item[] getItems() {
         return item;
     }
 
@@ -36,11 +40,12 @@ public class RegularVendo {
     }
 
     public Item getItem(int slot) {
-        return item.get(slot);
+        return item[slot];
     }
   
     public Item dispenseItem(int slot, int quantity) {
 
+        //TODO
         //code for successful dispense of item
 
             // return true;
