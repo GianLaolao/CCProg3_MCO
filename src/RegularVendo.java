@@ -47,8 +47,17 @@ public class RegularVendo {
         return false;
     }
 
+    public void setPrice(int price, int slot) {
+
+        getItem(slot).setPrice(price);
+    }
+
     public Item getItem(int slot) {
         return item[slot];
+    }
+
+    public int getItemPrice(int slot) {
+        return item[slot].getPrice();
     }
   
     public Item dispenseItem(int slot, int quantity) {

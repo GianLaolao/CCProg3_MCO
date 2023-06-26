@@ -105,7 +105,8 @@ public class Main {
         main.displayItems(item);
 
         System.out.println("Enter Slot Number");
-        
+        slot = sc.nextInt();
+        sc.nextLine();
 
         return 0;
     }
@@ -202,7 +203,7 @@ public class Main {
 
     public void setPrice (Scanner sc, VendingMachine vendo, Main main) {
 
-        int slot, quantity;
+        int slot, price;
         Item[] item;
 
         item = vendo.getRegular().getItems();
@@ -211,7 +212,11 @@ public class Main {
             main.displayItems(item);
             slot = sc.nextInt();
 
+            System.out.println("Enter new Price: ");
+            price = sc.nextInt();
+            sc.nextLine();
 
+            vendo.setPrice(price, slot);
 
 
         } while(slot < 1 || slot >= item.length);

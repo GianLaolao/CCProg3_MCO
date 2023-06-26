@@ -46,6 +46,11 @@ public class VendingMachine {
         return restockItem(quantity, slot);
     }
 
+    public void setPrice(int price, int slot){
+
+        regular.setPrice(price, slot);
+    }
+
     public void addMoney(int quantity, int type) {
         
         switch(type) {
