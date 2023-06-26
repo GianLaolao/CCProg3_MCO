@@ -23,7 +23,7 @@ public class Main {
                     break;
                 case 2: 
                     if (vendo.getRegular() != null)
-                        main.testVendo(vendo, main);
+                        main.testVendo(vendo, main, sc);
                     else
                         System.out.println("\tNo Vending Machine to Test");
                     break;
@@ -66,10 +66,9 @@ public class Main {
         } while (choice < 1 || choice > 3);
     }
 
-    public void testVendo(VendingMachine vendo, Main main) {
+    public void testVendo(VendingMachine vendo, Main main, Scanner sc) {
 
         int choice;
-        Scanner sc = new Scanner(System.in);
 
         System.out.println("\tVending Machine Testing");
         System.out.println("------------------------------------");
@@ -95,7 +94,6 @@ public class Main {
             
         }
 
-        sc.close();
     }
 
     public int vendingFeatures (VendingMachine vendo, Main main, Scanner sc) {
@@ -255,7 +253,7 @@ public class Main {
         int choice;
         Scanner sc = new Scanner (System.in);
 
-
+        do {
             System.out.println("\tMAINTENANCE:");
             System.out.println("-----------------------------");
             System.out.println("\t[1] Add Item");
@@ -289,6 +287,7 @@ public class Main {
                     break;
                 case 7:
             }
+        } while (choice != 7);
     }
 
 }

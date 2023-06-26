@@ -1,10 +1,14 @@
 
 public class RegularVendo {
 
-    private Item[] item = new Item[8];
-        
+    private Item[] item;
+    
+    public RegularVendo() {
+        this.item = new Item[8];
+    }
+
     public boolean addItem(Item product) {
-        if (item.length < 8) {
+        if (item != null || item.length > 0) {
             for(int i = 0; i < item.length; i++){
                 if (item[i] == null){
                     item[i] = product;
@@ -25,7 +29,7 @@ public class RegularVendo {
 
     public Item[] getItems() {
         
-        if (item.length > 0)
+        if (item != null)
             return item;
         
         return null;
