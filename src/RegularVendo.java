@@ -24,7 +24,11 @@ public class RegularVendo {
 
 
     public Item[] getItems() {
-        return item;
+        
+        if (item.length > 0)
+            return item;
+        
+        return null;
     }
 
     public boolean restockItem(int quantity, int slot) {
