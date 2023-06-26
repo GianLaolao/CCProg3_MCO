@@ -37,8 +37,7 @@ public class VendingMachine {
     }
 
     public boolean removeItem(int slot) {
-
-        return false;
+        return regular.removeItem(slot);
     }
 
     public boolean restockItem(int quantity, int slot) {

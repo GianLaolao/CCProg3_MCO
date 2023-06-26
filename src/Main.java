@@ -165,11 +165,11 @@ public class Main {
             main.displayItems(item);
             slot = sc.nextInt();
 
-            if (slot < 1 || slot >= item.length) {
+            if (slot < 1 || slot > item.length) {
                 System.out.println("\tInvalid Choice");
             }
             else{
-                vendo.removeItem(slot);
+                vendo.removeItem(slot-1);
             }
 
         } while (slot < 1 || slot >= item.length);
@@ -187,14 +187,14 @@ public class Main {
             main.displayItems(item);
             slot = sc.nextInt();
 
-            if (slot < 1 || slot >= item.length) {
+            if (slot < 1 || slot > item.length) {
                 System.out.println("\tInvalid Choice");
             }
             else{
                 System.out.println("Free Space: " + (10 - item[slot].getQuantity()));
                 System.out.println("Input Quantity: ");
                 quantity = sc.nextInt();
-                vendo.restockItem(quantity, slot);
+                vendo.restockItem(quantity, slot-1);
             }
 
         } while (slot < 1 || slot >= item.length);
@@ -216,7 +216,7 @@ public class Main {
             price = sc.nextInt();
             sc.nextLine();
 
-            vendo.setPrice(price, slot);
+            vendo.setPrice(price, slot-1);
 
 
         } while(slot < 1 || slot >= item.length);

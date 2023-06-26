@@ -21,7 +21,11 @@ public class RegularVendo {
     
     public boolean removeItem(int slot) {
 
-        //TODO
+        if (item[slot] != null){
+            item[slot] = null;
+            return true;
+        }
+       
 
         return false;
     }
