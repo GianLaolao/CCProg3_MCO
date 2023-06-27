@@ -4,8 +4,9 @@ public class VendingMachine {
     
     private RegularVendo regular = null;
     private ArrayList<Record> records = new ArrayList<>();
-    private MoneyBox money = new MoneyBox();
-    private float totalSales;
+    private MoneyBox vendoMoney = new MoneyBox();
+    private MoneyBox userMoney = new MoneyBox();
+    private int totalSales = 0;
     
     public void createRegularVendo() {
         regular = new RegularVendo();
@@ -76,26 +77,51 @@ public class VendingMachine {
         
         switch(type) {
             case 1:
-                money.getOnePeso().setQuantity(quantity);
+                vendoMoney.getOnePeso().setQuantity(quantity);
             case 2:
-                money.getFivePeso().setQuantity(quantity);
+                vendoMoney.getFivePeso().setQuantity(quantity);
             case 3: 
-                money.getTenPeso().setQuantity(quantity);
+                vendoMoney.getTenPeso().setQuantity(quantity);
             case 4:
-                money.getFiftyPeso().setQuantity(quantity);
+                vendoMoney.getFiftyPeso().setQuantity(quantity);
             case 5: 
-                money.getHundredPeso().setQuantity(quantity);
+                vendoMoney.getHundredPeso().setQuantity(quantity);
         }
     }
-    public int retrieveProfit() {
-        return money.collectProfit();
+
+    public int produceChange(int payment, int price) {
+        //TODO
+        //calculate change and return change
+
+        return 0;
     }
 
+    public int retrieveProfit() {
+
+        int profit;
+
+        profit = vendoMoney.getOnePeso().getTotal() + vendoMoney.getFivePeso().getTotal() + vendoMoney.getTenPeso().getTotal() 
+                + vendoMoney.getTwentyPeso().getTotal() + vendoMoney.getFiftyPeso().getTotal() + vendoMoney.getHundredPeso().getTotal();
+
+        vendoMoney.getOnePeso().setQuantity(0);
+        vendoMoney.getFivePeso().setQuantity(0);
+        vendoMoney.getTenPeso().setQuantity(0);
+        vendoMoney.getTwentyPeso().setQuantity(0);
+        vendoMoney.getFiftyPeso().setQuantity(0);
+        vendoMoney.getHundredPeso().setQuantity(0);
+
+
+        return profit;
+    }
+   
     public RegularVendo getRegular() {
         return regular;
     }
-    public MoneyBox getMoney() {
-        return money;
+    public MoneyBox getVendoMoney() {
+        return vendoMoney;
+    }
+    public MoneyBox getUserMoney() {
+        return userMoney;
     }
     public ArrayList<Record> getRecords() {
         return records;
@@ -108,7 +134,12 @@ public class VendingMachine {
         }
         return null;
     }
-    public float getTotalSales() {
+    public int getTotalSales() {
+
+        for(int i = 0; i < records.size(); i++) {
+            totalSales += (records.get(i).getSold() * records.get(i).getItem().getPrice());
+        }
+
         return totalSales;
     }
 

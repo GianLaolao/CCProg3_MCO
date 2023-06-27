@@ -44,28 +44,4 @@ public class MoneyBox {
     public Cash getHundredPeso() {
         return hundredPeso;
     }
-
-    public int produceChange(int payment, int price) {
-        //TODO
-        //calculate change and return change
-
-        return 0;
-    }
-
-    public int collectProfit() {
-
-        int earning;
-
-        earning = onePeso.getTotal() + fivePeso.getTotal() + tenPeso.getTotal() + twentyPeso.getTotal() + fiftyPeso.getTotal() + hundredPeso.getTotal();
-
-        onePeso.setQuantity(0);
-        fivePeso.setQuantity(0);
-        tenPeso.setQuantity(0);
-        twentyPeso.setQuantity(0);
-        fiftyPeso.setQuantity(0);
-        hundredPeso.setQuantity(0);
-
-
-        return earning;
-    }
 }

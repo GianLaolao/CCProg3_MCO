@@ -120,9 +120,11 @@ public class Main {
 
                 if (quantity <= item[slot].getQuantity()) {
 
+
                     System.out.println("\tDispensing Item...");
                     Item dispensed = vendo.dispenseItem(slot, quantity);
-                    main.displayItemInfo(dispensed, payment);
+                    //main.displayItemInfo(dispensed, payment);
+                    //TODO
                 }
                 else {
                     System.out.println("\tInvalid Item Quantity");
@@ -136,6 +138,9 @@ public class Main {
     public void displayItemInfo(Item dispensed, int payment) {
 
         System.out.println("Item Bought: ");
+
+        //not done
+        //TODO
     }
 
     public void displayItems(Item[] item) {
@@ -306,17 +311,17 @@ public class Main {
 
             switch(choice){
                 case 1:
-                    vendo.getMoney().setOnePeso(quantity);
+                    vendo.getVendoMoney().setOnePeso(quantity);
                 case 2:
-                    vendo.getMoney().setFivePeso(quantity);
+                    vendo.getVendoMoney().setFivePeso(quantity);
                 case 3: 
-                    vendo.getMoney().setTenPeso(quantity);
+                    vendo.getVendoMoney().setTenPeso(quantity);
                 case 4:
-                    vendo.getMoney().setTwentyPeso(quantity);
+                    vendo.getVendoMoney().setTwentyPeso(quantity);
                 case 5:
-                    vendo.getMoney().setFiftyPeso(quantity);
+                    vendo.getVendoMoney().setFiftyPeso(quantity);
                 case 6:
-                    vendo.getMoney().setHundredPeso(quantity);
+                    vendo.getVendoMoney().setHundredPeso(quantity);
                 case 0:
 
                 default:
