@@ -119,9 +119,10 @@ public class Main {
                 sc.nextLine();
 
                 if (quantity <= item[slot].getQuantity()) {
+
                     System.out.println("\tDispensing Item...");
                     Item dispensed = vendo.dispenseItem(slot, quantity);
-                    main.displayItemInfo(dispensed);
+                    main.displayItemInfo(dispensed, payment);
                 }
                 else {
                     System.out.println("\tInvalid Item Quantity");
@@ -132,7 +133,8 @@ public class Main {
         return 0;
     }
 
-    public void displayItemInfo(Item dispensed) {
+    public void displayItemInfo(Item dispensed, int payment) {
+
         System.out.println("Item Bought: ");
     }
 
