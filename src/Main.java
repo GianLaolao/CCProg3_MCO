@@ -101,16 +101,39 @@ public class Main {
 
         Item[] item;
         item = vendo.getRegular().getItems();
-        int slot;
+        int slot, quantity, payment;
+        boolean check;
 
-        main.displayItems(item);
-        System.out.println("\nInput [0] to Exit and cancel Transaction");
+        do {
+            main.displayItems(item);
+            System.out.println("\nInput [0] to Exit and cancel Transaction");
 
-        System.out.println("Enter Slot Number");
-        slot = sc.nextInt();
-        sc.nextLine();
+            System.out.print("Enter Slot Number");
+            slot = sc.nextInt();
 
+            check = checkSlot(slot, item);
+
+            if (check)
+                System.out.print("\n\tEnter Itam Quantity: ");
+                quantity = sc.nextInt();
+                sc.nextLine();
+
+                if (quantity <= item[slot].getQuantity()) {
+                    System.out.println("\tDispensing Item...");
+                    Item dispensed = vendo.dispenseItem(slot, quantity);
+                    main.displayItemInfo(dispensed);
+                }
+                else {
+                    System.out.println("\tInvalid Item Quantity");
+                    check = !check;
+                }
+            
+        } while (!check); 
         return 0;
+    }
+
+    public void displayItemInfo(Item dispensed) {
+        System.out.println("Item Bought: ");
     }
 
     public void displayItems(Item[] item) {

@@ -11,7 +11,7 @@ public class VendingMachine {
         regular = new RegularVendo();
     }
 
-    public void transaction(int payment, int slot) {
+    public void transaction(int payment, Item item) {
         
         //TODO
         //take payment, calculate change, give change
