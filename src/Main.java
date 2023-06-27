@@ -70,30 +70,31 @@ public class Main {
 
         int choice;
 
-        System.out.println("\tVending Machine Testing");
-        System.out.println("------------------------------------");
-        System.out.println("\t[1] Test Vending Features");
-        System.out.println("\t[2] Maintenance Features");
-        System.out.println("\t[3] Exit");
-        choice = sc.nextInt();
-        sc.nextLine();
+        do {
+            System.out.println("\tVending Machine Testing");
+            System.out.println("------------------------------------");
+            System.out.println("\t[1] Test Vending Features");
+            System.out.println("\t[2] Maintenance Features");
+            System.out.println("\t[3] Exit");
+            choice = sc.nextInt();
+            sc.nextLine();
 
-        switch(choice) {
-            case 1:
-                main.vendingFeatures(vendo, main, sc);
-                break;
-            case 2: 
-                main.maintenanceFeatures(vendo, main);
-                break;
-            case 3:
-                System.out.println("\tExiting...");
-                break;
-            default:
-                System.out.println("\tInvalid Option...");
-                break;
-            
-        }
-
+            switch(choice) {
+                case 1:
+                    main.vendingFeatures(vendo, main, sc);
+                    break;
+                case 2: 
+                    main.maintenanceFeatures(vendo, main);
+                    break;
+                case 3:
+                    System.out.println("\tExiting...");
+                    break;
+                default:
+                    System.out.println("\tInvalid Option...");
+                    break;
+                
+            }
+        } while (choice != 3);    
     }
 
     public int vendingFeatures (VendingMachine vendo, Main main, Scanner sc) {
@@ -103,6 +104,7 @@ public class Main {
         int slot;
 
         main.displayItems(item);
+        System.out.println("\nInput [0] to Exit and cancel Transaction");
 
         System.out.println("Enter Slot Number");
         slot = sc.nextInt();
@@ -118,16 +120,33 @@ public class Main {
         }
         else {
             for (int i = 0; i < item.length; i++) {
-                System.out.println((i+1) + "Item: " + item[i].getName());
-                System.out.println("\tPrice: " + item[i].getPrice());
-                System.out.println("\tCalories: " + item[i].getCalories());
-                System.out.println("\tAvaliable: " + item[i].getQuantity());
-                System.out.print("\n");
+                
+                if (item[i] != null)
+                    System.out.println("Slot Number " + (i+1)); 
+                    System.out.println("Item: " + item[i].getName());
+                    System.out.println("\tPrice: " + item[i].getPrice());
+                    System.out.println("\tCalories: " + item[i].getCalories());
+                    System.out.println("\tAvaliable: " + item[i].getQuantity());
+                    System.out.print("\n");
             }
         }
     }
 
-    public void addItem(Scanner sc, VendingMachine vendo) {
+    public boolean checkSlot(int slot, Item[] item) {
+
+        if (slot == 0) {
+            System.out.println("\tExiting");
+            return false;
+        }
+        else if (slot < 0 || slot > item.length || item[slot] == null) {
+            System.out.println("\tInvalid Choice");
+            return false;
+        }
+
+        return true;
+    }
+
+    public void addItem(Scanner sc, VendingMachine vendo, Main main) {
 
         String name;
         int price, quantity;
@@ -163,17 +182,16 @@ public class Main {
 
         do {    
             main.displayItems(item);
+            System.out.println("\nInput [0] to Exit");
+            System.out.print("Input Item Slot Number: ");
             slot = sc.nextInt();
-
-            if (slot < 1 || slot > item.length) {
-                System.out.println("\tInvalid Choice");
-            }
-            else{
+            sc.nextLine();
+            
+            if (main.checkSlot(slot, item)){
                 vendo.removeItem(slot-1);
             }
 
-        } while (slot < 1 || slot >= item.length);
-           
+        } while (slot < 0 || slot > item.length);       
     }
 
     public void restockItem (Scanner sc, VendingMachine vendo, Main main) {
@@ -185,19 +203,25 @@ public class Main {
 
         do {    
             main.displayItems(item);
+            System.out.println("\nInput [0] to Exit");
+            System.out.print("Input Item Slot Number: ");
+
             slot = sc.nextInt();
 
-            if (slot < 1 || slot > item.length) {
-                System.out.println("\tInvalid Choice");
-            }
-            else{
+            if (main.checkSlot(slot, item)){
                 System.out.println("Free Space: " + (10 - item[slot].getQuantity()));
                 System.out.println("Input Quantity: ");
                 quantity = sc.nextInt();
-                vendo.restockItem(quantity, slot-1);
+
+                if (vendo.restockItem(quantity, slot-1))
+                    System.out.println("\tItem restocked!");
+                else 
+                    System.out.println("\tQuantity Overflow!");
+
+                
             }
 
-        } while (slot < 1 || slot >= item.length);
+        } while (slot < 0 || slot > item.length || item[slot] == null);
            
     }
 
@@ -210,16 +234,20 @@ public class Main {
 
         do {    
             main.displayItems(item);
+
             slot = sc.nextInt();
 
             System.out.println("Enter new Price: ");
             price = sc.nextInt();
             sc.nextLine();
+        
+            if (vendo.setItemPrice(price, slot-1))
+                System.out.println("\tItem Price Chaanged!");
+            else
+                System.out.println("\tInvalid Slot");
 
-            vendo.setPrice(price, slot-1);
 
-
-        } while(slot < 1 || slot >= item.length);
+        } while(slot < 0 || slot > item.length);
 
     }
 
@@ -232,25 +260,43 @@ public class Main {
 
     public void addChange(Scanner sc, VendingMachine vendo, Main main) {
 
-        int choice;
+        int choice, quantity = 0;
 
-        System.out.println("Choose Denomination: ");
-        System.out.println("[1] One Peso");
-        System.out.println("[2] Five Peso");
-        System.out.println("[3] Ten Peso");
-        System.out.println("[4] Twenty Peso");
-        System.out.println("[5] Fifty Peso");
-        System.out.println("[6] Hundred Peso");
-        System.out.println("[0] Exit");
-        choice = sc.nextInt();
+        do {
+            System.out.println("Choose Denomination: ");
+            System.out.println("[1] One Peso");
+            System.out.println("[2] Five Peso");
+            System.out.println("[3] Ten Peso");
+            System.out.println("[4] Twenty Peso");
+            System.out.println("[5] Fifty Peso");
+            System.out.println("[6] Hundred Peso");
+            System.out.println("[0] Exit");
+            choice = sc.nextInt();
 
-        switch(choice){
-            case 1:
+            if (choice > 0 && choice <= 6) {
+                System.out.print("Add Quantity: ");
+                quantity = sc.nextInt();
+                sc.nextLine();
+            }
 
-            case 2:
+            switch(choice){
+                case 1:
+                    vendo.getMoney().setOnePeso(quantity);
+                case 2:
+                    vendo.getMoney().setFivePeso(quantity);
+                case 3: 
+                    vendo.getMoney().setTenPeso(quantity);
+                case 4:
+                    vendo.getMoney().setTwentyPeso(quantity);
+                case 5:
+                    vendo.getMoney().setFiftyPeso(quantity);
+                case 6:
+                    vendo.getMoney().setHundredPeso(quantity);
+                case 0:
 
-            case 3: 
-        }
+                default:
+            }
+        } while (choice != 0);
     }
 
     public void maintenanceFeatures (VendingMachine vendo, Main main) {
@@ -259,7 +305,7 @@ public class Main {
         Scanner sc = new Scanner (System.in);
 
         do {
-            System.out.println("\tMAINTENANCE:");
+            System.out.println("\n\tMAINTENANCE:");
             System.out.println("-----------------------------");
             System.out.println("\t[1] Add Item");
             System.out.println("\t[2] Remove Item");
@@ -273,7 +319,7 @@ public class Main {
 
             switch(choice) {
                 case 1:
-                    main.addItem(sc, vendo);
+                    main.addItem(sc, vendo, main);
                     break;
                 case 2:
                     main.removeItem(sc, vendo, main);
@@ -291,6 +337,10 @@ public class Main {
                     main.addChange(sc, vendo, main);
                     break;
                 case 7:
+                    System.out.println("\tExiting....");
+                    break;
+                default:
+                    System.out.println("\tInvalid Option...");
             }
         } while (choice != 7);
     }

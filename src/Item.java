@@ -20,6 +20,10 @@ public class Item {
         this.quantity += quantity;
     }
 
+    public void sellItem (int quantity) {
+        this.quantity -= quantity;
+    }
+
     public String getName() {
         return name;
     }

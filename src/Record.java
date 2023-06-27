@@ -9,11 +9,15 @@ public class Record {
     }
 
     public void setSold(int sold) {
-        this.sold = sold;
+        this.sold += sold;
     }
 
     public void setStartingInventory() {
         this.startingInventory = item.getQuantity();
+    }
+
+    public Item getItem() {
+        return item;
     }
 
     public int getSold() {

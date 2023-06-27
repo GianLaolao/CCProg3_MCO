@@ -3,6 +3,7 @@ public class MoneyBox {
     private Cash onePeso = new Cash(1);
     private Cash fivePeso = new Cash(5);
     private Cash tenPeso = new Cash(10);
+    private Cash twentyPeso = new Cash(20);
     private Cash fiftyPeso = new Cash(50);
     private Cash hundredPeso = new Cash(100);
 
@@ -14,6 +15,9 @@ public class MoneyBox {
     }
     public void setTenPeso(int quantity) {
         this.tenPeso.setQuantity(quantity);
+    }
+    public void setTwentyPeso(int quantity) {
+        this.twentyPeso.setQuantity(quantity);
     }
     public void setFiftyPeso(int quantity) {
         this.fiftyPeso.setQuantity(quantity);
@@ -30,6 +34,9 @@ public class MoneyBox {
     }
     public Cash getTenPeso() {
         return tenPeso;
+    }
+    public Cash getTwentyPeso() {
+        return twentyPeso;
     }
     public Cash getFiftyPeso() {
         return fiftyPeso;
@@ -49,11 +56,12 @@ public class MoneyBox {
 
         int earning;
 
-        earning = onePeso.getTotal() + fivePeso.getTotal() + tenPeso.getTotal() + fiftyPeso.getTotal() + hundredPeso.getTotal();
+        earning = onePeso.getTotal() + fivePeso.getTotal() + tenPeso.getTotal() + twentyPeso.getTotal() + fiftyPeso.getTotal() + hundredPeso.getTotal();
 
         onePeso.setQuantity(0);
         fivePeso.setQuantity(0);
         tenPeso.setQuantity(0);
+        twentyPeso.setQuantity(0);
         fiftyPeso.setQuantity(0);
         hundredPeso.setQuantity(0);
 

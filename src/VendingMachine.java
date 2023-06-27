@@ -17,12 +17,16 @@ public class VendingMachine {
         //take payment, calculate change, give change
     }
 
-    public Item dispenseItem(int itemNum, int quantity) {
+    public Item dispenseItem(int slot, int quantity) {
 
-        Item bought = regular.dispenseItem(itemNum, quantity);
+        Item bought = regular.dispenseItem(slot, quantity);
+        Record record = getItemRecord(bought);
         
-        if (bought != null) {
+        if (bought != null && record != null) {
+
+            record.setSold(quantity);
             return bought;
+            
         }
 
         return null;
@@ -32,6 +36,8 @@ public class VendingMachine {
     public boolean addItem(String name, int price, float calories, int quantity) {
         
         Item item = new Item(name, price, calories, quantity);
+        Record record = new Record(item);
+        records.add(record);
         
         return regular.addItem(item);
     }
@@ -42,12 +48,28 @@ public class VendingMachine {
 
     public boolean restockItem(int quantity, int slot) {
         
-        return restockItem(quantity, slot);
+        Item item = regular.getItem(slot);
+
+        if (10 - item.getQuantity() >= quantity) {
+            regular.restockItem(quantity, item);
+            getItemRecord(item).setStartingInventory();
+            getItemRecord(item).setSold(0);
+            return true;
+        }
+            
+        return false;
     }
 
-    public void setPrice(int price, int slot){
+    public boolean setItemPrice(int price, int slot){
 
-        regular.setPrice(price, slot);
+        Item item = regular.getItem(slot);
+
+        if(item != null) {
+            regular.setItemPrice(price, slot);
+            return true;
+        }
+           
+        return false;
     }
 
     public void addMoney(int quantity, int type) {
@@ -77,6 +99,14 @@ public class VendingMachine {
     }
     public ArrayList<Record> getRecords() {
         return records;
+    }
+    public Record getItemRecord(Item item) {
+
+        for (int i = 0; i < records.size(); i++){
+            if (records.get(i).getItem().getName() == item.getName())
+                return records.get(i);
+        }
+        return null;
     }
     public float getTotalSales() {
         return totalSales;

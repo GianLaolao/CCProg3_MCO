@@ -12,9 +12,9 @@ public class RegularVendo {
             for(int i = 0; i < item.length; i++){
                 if (item[i] == null){
                     item[i] = product;
+                    return true;
                 }
             }
-            return true;
         }
         return false;   
     }
@@ -39,19 +39,12 @@ public class RegularVendo {
         return null;
     }
 
-    public boolean restockItem(int quantity, int slot) {
+    public void restockItem(int quantity, Item item) {
 
-        Item item = getItem(slot);
-
-        if (10 - item.getQuantity() >= quantity) {
-            item.addQuantity(quantity);
-            return true;
-        }
-            
-        return false;
+        item.addQuantity(quantity);
     }
 
-    public void setPrice(int price, int slot) {
+    public void setItemPrice(int price, int slot) {
 
         getItem(slot).setPrice(price);
     }
@@ -66,11 +59,13 @@ public class RegularVendo {
   
     public Item dispenseItem(int slot, int quantity) {
 
-        //TODO
-        //code for successful dispense of item
+        Item bought = getItem(slot);
 
-            // return true;
-
+        if (bought != null) {
+            if (bought.getQuantity() != 0 && bought.getQuantity() > quantity)
+                bought.sellItem(quantity);
+                return bought;
+        }
         
         return null;
     }
