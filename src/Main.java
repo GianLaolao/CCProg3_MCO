@@ -144,7 +144,6 @@ public class Main {
     public MoneyBox getPayment(Scanner sc, VendingMachine vendo){
 
         int choice;
-        MoneyBox payment = vendo.getUserMoney();
 
         do {
             System.out.println("\nCurrent Money: " + vendo.getUserMoney().getTotal());
@@ -159,24 +158,8 @@ public class Main {
             sc.nextLine();
 
             switch(choice){
-                case 1:
-                    payment.setOnePeso(payment.getOnePeso().getQuantity() + 1);
-                    break;
-                case 2:
-                    payment.setFivePeso(payment.getFivePeso().getQuantity() + 1);
-                    break;
-                case 3:
-                    payment.setTenPeso(payment.getTenPeso().getQuantity() + 1);
-                    break;
-                case 4:
-                    payment.setTwentyPeso(payment.getTwentyPeso().getQuantity() + 1);
-                    break;
-                case 5:
-                    payment.setFiftyPeso(payment.getFiftyPeso().getQuantity() + 1);
-                    break;
-                case 6:
-                    payment.setHundredPeso(payment.getHundredPeso().getQuantity() + 1);
-                    break;
+                case 1: case 2: case 3: case 4: case 5: case 6:
+                    vendo.takePayment(choice);
                 case 0:
                     System.out.println("\tPayment confirmed...");
                 default:
@@ -366,7 +349,16 @@ public class Main {
         System.out.println("==============================");
 
         do {
-            System.out.println("Choose Denomination: ");
+
+            System.out.println("Vendo Money: ");
+            System.out.println("One Peso Quantity:\t" + vendo.getVendoMoney().getOnePeso().getQuantity());
+            System.out.println("Five Peso Quantity:\t" + vendo.getVendoMoney().getFivePeso().getQuantity());
+            System.out.println("Ten Peso Quantity:\t" + vendo.getVendoMoney().getTenPeso().getQuantity());
+            System.out.println("Twenty Peso Quantity:\t" + vendo.getVendoMoney().getTwentyPeso().getQuantity());
+            System.out.println("Fifty Peso Quantity:\t" + vendo.getVendoMoney().getFiftyPeso().getQuantity());
+            System.out.println("One Hundred Peso Quantity:\t" + vendo.getVendoMoney().getHundredPeso().getQuantity());
+
+            System.out.println("\nChoose Denomination: ");
             System.out.println("[1] One Peso");
             System.out.println("[2] Five Peso");
             System.out.println("[3] Ten Peso");
@@ -376,30 +368,35 @@ public class Main {
             System.out.println("[0] Exit");
             choice = sc.nextInt();
 
-            if (choice > 0 && choice <= 6) {
+            if (choice == 0) {
+                System.out.println("\tExiting...");
+            }
+            else if (choice > 0 && choice <= 6) {
                 System.out.print("Add Quantity: ");
                 quantity = sc.nextInt();
                 sc.nextLine();
+                
+                vendo.addMoney(quantity, choice);
             }
+            else
+                System.out.println("\tInvalid Input...");
 
-            switch(choice){
-                case 1:
-                    vendo.getVendoMoney().setOnePeso(quantity);
-                case 2:
-                    vendo.getVendoMoney().setFivePeso(quantity);
-                case 3: 
-                    vendo.getVendoMoney().setTenPeso(quantity);
-                case 4:
-                    vendo.getVendoMoney().setTwentyPeso(quantity);
-                case 5:
-                    vendo.getVendoMoney().setFiftyPeso(quantity);
-                case 6:
-                    vendo.getVendoMoney().setHundredPeso(quantity);
-                case 0:
-
-                default:
-            }
         } while (choice != 0);
+    }
+
+    public void showSummary (VendingMachine vendo, Main main) {
+
+        ArrayList<Record> record = new ArrayList<>();
+        
+        record = vendo.getRecords();
+    
+        System.out.println("\t\tStarting Inventory \tEnding Inventory \tQuantity Sold");
+
+        for (int i = 0; i < record.size(); i++) {
+            System.out.println(record.get(i).getItem().getName() + "\t" + record.get(i).getStartingInventory() + "\t" + record.get(i).getItem().getQuantity() + "\t" + record.get(i).getSold());
+        }
+
+        System.out.println("\nTotal Sales: " + vendo.getTotalSales());
     }
 
     public void maintenanceFeatures (VendingMachine vendo, Main main) {
@@ -416,7 +413,8 @@ public class Main {
             System.out.println("\t[4] Set Price");
             System.out.println("\t[5] Collect Profit");
             System.out.println("\t[6] Add Change");
-            System.out.println("\t[7] Exit");
+            System.out.println("\t[7] Show Transaction Summary");
+            System.out.println("\t[8] Exit");
             choice = sc.nextInt();
             sc.nextLine();
 
@@ -440,12 +438,15 @@ public class Main {
                     main.addChange(sc, vendo, main);
                     break;
                 case 7:
+                    main.showSummary(vendo, main);
+                    break;
+                case 8:
                     System.out.println("\tExiting....");
                     break;
                 default:
                     System.out.println("\tInvalid Option...");
             }
-        } while (choice != 7);
+        } while (choice != 8);
     }
 
 }

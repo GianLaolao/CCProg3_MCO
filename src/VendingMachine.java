@@ -13,14 +13,36 @@ public class VendingMachine {
     }
 
     public MoneyBox transaction(int quantity, Item item) {
+    
+        int price = item.getPrice() * quantity;
         
-        //TODO
-
-        int price;
-
         //take payment, calculate change, give change
 
         return produceChange(price);
+    }
+
+    public void takePayment(int type) {
+
+        switch(type){
+            case 1:
+                userMoney.setOnePeso(userMoney.getOnePeso().getQuantity() + 1);
+                break;
+            case 2:
+                userMoney.setFivePeso(userMoney.getFivePeso().getQuantity() + 1);
+                break;
+            case 3:
+                userMoney.setTenPeso(userMoney.getTenPeso().getQuantity() + 1);
+                break;
+            case 4:
+                userMoney.setTwentyPeso(userMoney.getTwentyPeso().getQuantity() + 1);
+                break;
+            case 5:
+                userMoney.setFiftyPeso(userMoney.getFiftyPeso().getQuantity() + 1);
+                break;
+            case 6:
+                userMoney.setHundredPeso(userMoney.getHundredPeso().getQuantity() + 1);
+                break;
+        }
     }
 
     public Item dispenseItem(int slot, int quantity) {
@@ -80,17 +102,19 @@ public class VendingMachine {
 
     public void addMoney(int quantity, int type) {
         
-        switch(type) {
+         switch(type){
             case 1:
-                vendoMoney.getOnePeso().setQuantity(quantity);
+                vendoMoney.setOnePeso(quantity);
             case 2:
-                vendoMoney.getFivePeso().setQuantity(quantity);
+                vendoMoney.setFivePeso(quantity);
             case 3: 
-                vendoMoney.getTenPeso().setQuantity(quantity);
+                vendoMoney.setTenPeso(quantity);
             case 4:
-                vendoMoney.getFiftyPeso().setQuantity(quantity);
-            case 5: 
-                vendoMoney.getHundredPeso().setQuantity(quantity);
+                vendoMoney.setTwentyPeso(quantity);
+            case 5:
+                vendoMoney.setFiftyPeso(quantity);
+            case 6:
+                vendoMoney.setHundredPeso(quantity);
         }
     }
 
@@ -115,7 +139,6 @@ public class VendingMachine {
         vendoMoney.getTwentyPeso().setQuantity(0);
         vendoMoney.getFiftyPeso().setQuantity(0);
         vendoMoney.getHundredPeso().setQuantity(0);
-
 
         return profit;
     }
