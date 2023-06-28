@@ -12,10 +12,15 @@ public class VendingMachine {
         regular = new RegularVendo();
     }
 
-    public void transaction(int payment, Item item) {
+    public MoneyBox transaction(int quantity, Item item) {
         
         //TODO
+
+        int price;
+
         //take payment, calculate change, give change
+
+        return produceChange(price);
     }
 
     public Item dispenseItem(int slot, int quantity) {
@@ -89,11 +94,13 @@ public class VendingMachine {
         }
     }
 
-    public int produceChange(int payment, int price) {
+    private MoneyBox produceChange(int price) {
         //TODO
+
+        MoneyBox change = new MoneyBox(); //stores change
         //calculate change and return change
 
-        return 0;
+        return change;
     }
 
     public int retrieveProfit() {

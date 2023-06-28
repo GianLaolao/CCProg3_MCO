@@ -178,8 +178,9 @@ public class Main {
                     payment.setHundredPeso(payment.getHundredPeso().getQuantity() + 1);
                     break;
                 case 0:
-
+                    System.out.println("\tPayment confirmed...");
                 default:
+                    System.out.println("\tInvalid Input...");
             }
 
         } while (choice != 0);  
