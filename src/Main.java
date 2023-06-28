@@ -11,7 +11,7 @@ public class Main {
         int choice;
 
         do {
-            System.out.println("Options: [1] Create a Vending Machine");
+            System.out.println("\nOptions: [1] Create a Vending Machine");
             System.out.println("         [2] Test a Vending Machine");
             System.out.println("         [3] Exit");
             choice = sc.nextInt();
@@ -43,7 +43,7 @@ public class Main {
         int choice;
 
         do {
-            System.out.println("Choose Vending Machine: [1] Regular Vending Machine");
+            System.out.println("\nChoose Vending Machine: [1] Regular Vending Machine");
             System.out.println("                        [2] Coming Soon...");
             System.out.println("                        [3] Back to Options");
             choice = sc.nextInt();
@@ -71,7 +71,7 @@ public class Main {
         int choice;
 
         do {
-            System.out.println("\tVending Machine Testing");
+            System.out.println("\n\tVending Machine Testing");
             System.out.println("------------------------------------");
             System.out.println("\t[1] Test Vending Features");
             System.out.println("\t[2] Maintenance Features");
@@ -124,13 +124,15 @@ public class Main {
                     payment = main.getPayment(sc, vendo);
                     System.out.println("\tDispensing Item...");
                     Item dispensed = vendo.dispenseItem(slot, quantity);
-                    //main.displayItemInfo(dispensed, payment);
+                    
                     //TODO
                 }
                 else {
                     System.out.println("\tInvalid Item Quantity");
                     check = !check;
                 }
+
+                //main.displayTransacInfo(dispensed, payment);
             
         } while (!check); 
         return 0;
@@ -142,7 +144,7 @@ public class Main {
         MoneyBox payment = vendo.getUserMoney();
 
         do {
-            System.out.println("Current Money: " + vendo.getUserMoney().getTotal());
+            System.out.println("\nCurrent Money: " + vendo.getUserMoney().getTotal());
             System.out.println("\nInput Payment: [1] One Peso (1)");
             System.out.println("               [2] Five Peso (5)");
             System.out.println("               [3] Ten Peso (10)");
@@ -182,9 +184,10 @@ public class Main {
         return vendo.getUserMoney();
     }
 
-    public void displayItemInfo(Item dispensed, int payment) {
+    public void displayTransacInfo(Item dispensed, int payment) {
 
-        System.out.println("Item Bought: ");
+        System.out.println("\nItem Bought: " + dispensed.getName());
+        System.out.println("\tCalories: " + dispensed.getCalories());
 
         //not done
         //TODO
@@ -192,19 +195,14 @@ public class Main {
 
     public void displayItems(Item[] item) {
 
-        if (item == null) {
-            System.out.println("\tVending Machine Empty");
-        }
-        else {
-            for (int i = 0; i < item.length; i++) {
-                
-                if (item[i] != null)
-                    System.out.println("Slot Number " + (i+1)); 
-                    System.out.println("Item: " + item[i].getName());
-                    System.out.println("\tPrice: " + item[i].getPrice());
-                    System.out.println("\tCalories: " + item[i].getCalories());
-                    System.out.println("\tAvaliable: " + item[i].getQuantity());
-                    System.out.print("\n");
+        
+        for (int i = 0; i < item.length; i++) {        
+            if (item[i] != null) {
+                System.out.println("\nSlot Number " + (i+1)); 
+                System.out.println("Item: " + item[i].getName());
+                System.out.println("\tPrice: " + item[i].getPrice());
+                System.out.println("\tCalories: " + item[i].getCalories());
+                System.out.println("\tAvaliable: " + item[i].getQuantity());
             }
         }
     }
@@ -302,7 +300,7 @@ public class Main {
            
     }
 
-    public void setPrice (Scanner sc, VendingMachine vendo, Main main) {
+    public int setPrice (Scanner sc, VendingMachine vendo, Main main) {
 
         int slot, price;
         Item[] item;
@@ -311,13 +309,20 @@ public class Main {
 
         do {    
             main.displayItems(item);
-
+            System.out.println("\nInput [0] to Exit");
+            System.out.print("Input Item Slot Number: ");
             slot = sc.nextInt();
+
+            
+            if (slot == 0) {
+                System.out.println("\tExiting...");
+                return 0;
+            }
 
             System.out.println("Enter new Price: ");
             price = sc.nextInt();
             sc.nextLine();
-        
+            
             if (vendo.setItemPrice(price, slot-1))
                 System.out.println("\tItem Price Chaanged!");
             else
@@ -325,7 +330,8 @@ public class Main {
 
 
         } while(slot < 0 || slot > item.length);
-
+        
+        return 1;
     }
 
     public void collectProfit(Scanner sc, VendingMachine vendo, Main main) {
