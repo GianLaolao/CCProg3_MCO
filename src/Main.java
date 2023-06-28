@@ -101,7 +101,8 @@ public class Main {
 
         Item[] item;
         item = vendo.getRegular().getItems();
-        int slot, quantity, payment;
+        int slot, quantity;
+        MoneyBox payment;
         boolean check;
 
         do {
@@ -120,7 +121,7 @@ public class Main {
 
                 if (quantity <= item[slot].getQuantity()) {
 
-
+                    payment = main.getPayment(sc, vendo);
                     System.out.println("\tDispensing Item...");
                     Item dispensed = vendo.dispenseItem(slot, quantity);
                     //main.displayItemInfo(dispensed, payment);
@@ -133,6 +134,52 @@ public class Main {
             
         } while (!check); 
         return 0;
+    }
+
+    public MoneyBox getPayment(Scanner sc, VendingMachine vendo){
+
+        int choice;
+        MoneyBox payment = vendo.getUserMoney();
+
+        do {
+            System.out.println("Current Money: " + vendo.getUserMoney().getTotal());
+            System.out.println("\nInput Payment: [1] One Peso (1)");
+            System.out.println("               [2] Five Peso (5)");
+            System.out.println("               [3] Ten Peso (10)");
+            System.out.println("               [4] Twenty Peso (20)");
+            System.out.println("               [5] Fifty Peso (50)");
+            System.out.println("               [6] One Hundred Peso (100)");
+            System.out.println("               [0] Confirm Payment");
+            choice = sc.nextInt();
+            sc.nextLine();
+
+            switch(choice){
+                case 1:
+                    payment.setOnePeso(payment.getOnePeso().getQuantity() + 1);
+                    break;
+                case 2:
+                    payment.setFivePeso(payment.getFivePeso().getQuantity() + 1);
+                    break;
+                case 3:
+                    payment.setTenPeso(payment.getTenPeso().getQuantity() + 1);
+                    break;
+                case 4:
+                    payment.setTwentyPeso(payment.getTwentyPeso().getQuantity() + 1);
+                    break;
+                case 5:
+                    payment.setFiftyPeso(payment.getFiftyPeso().getQuantity() + 1);
+                    break;
+                case 6:
+                    payment.setHundredPeso(payment.getHundredPeso().getQuantity() + 1);
+                    break;
+                case 0:
+
+                default:
+            }
+
+        } while (choice != 0);  
+
+        return vendo.getUserMoney();
     }
 
     public void displayItemInfo(Item dispensed, int payment) {

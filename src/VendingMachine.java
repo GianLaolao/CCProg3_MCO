@@ -100,8 +100,7 @@ public class VendingMachine {
 
         int profit;
 
-        profit = vendoMoney.getOnePeso().getTotal() + vendoMoney.getFivePeso().getTotal() + vendoMoney.getTenPeso().getTotal() 
-                + vendoMoney.getTwentyPeso().getTotal() + vendoMoney.getFiftyPeso().getTotal() + vendoMoney.getHundredPeso().getTotal();
+        profit = vendoMoney.getTotal();
 
         vendoMoney.getOnePeso().setQuantity(0);
         vendoMoney.getFivePeso().setQuantity(0);

@@ -44,4 +44,14 @@ public class MoneyBox {
     public Cash getHundredPeso() {
         return hundredPeso;
     }
+
+    public int getTotal(){
+
+        int total;
+
+        total = getOnePeso().getTotal() + getFivePeso().getTotal() + getTenPeso().getTotal() 
+                + getTwentyPeso().getTotal() + getFiftyPeso().getTotal() + getHundredPeso().getTotal();
+
+        return total;
+    }
 }
