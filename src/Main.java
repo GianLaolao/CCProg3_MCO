@@ -242,7 +242,7 @@ public class Main {
         sc.nextLine();
 
         if (quantity < 1 || quantity > 10) {
-            System.out.println("\tQuantity should be 1 to 10");
+            System.out.println("\t\nQuantity should be 1 to 10");
         }
         else if(vendo.addItem(name, price, calories, quantity)) {
             System.out.println("\tItem Added!");
@@ -354,7 +354,7 @@ public class Main {
 
         int profit = vendo.retrieveProfit();
         
-        System.out.println("Profit Collected: " + profit);
+        System.out.println("\n\tProfit Collected: " + profit);
     }
 
     public void addChange(Scanner sc, VendingMachine vendo, Main main) {
