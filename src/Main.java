@@ -105,21 +105,24 @@ public class Main {
         MoneyBox payment;
         boolean check;
 
+        System.out.println("\n\tTEST VENDING FEATURES");
+        System.out.println("================================");
+
         do {
             main.displayItems(item);
             System.out.println("\nInput [0] to Exit and cancel Transaction");
 
-            System.out.print("Enter Slot Number");
+            System.out.print("Enter Slot Number: ");
             slot = sc.nextInt();
 
-            check = checkSlot(slot, item);
+            check = checkSlot(slot - 1, item);
 
             if (check)
                 System.out.print("\n\tEnter Itam Quantity: ");
                 quantity = sc.nextInt();
                 sc.nextLine();
 
-                if (quantity <= item[slot].getQuantity()) {
+                if (quantity <= item[slot-1].getQuantity()) {
 
                     payment = main.getPayment(sc, vendo);
                     System.out.println("\tDispensing Item...");
@@ -195,7 +198,6 @@ public class Main {
 
     public void displayItems(Item[] item) {
 
-        
         for (int i = 0; i < item.length; i++) {        
             if (item[i] != null) {
                 System.out.println("\nSlot Number " + (i+1)); 
@@ -209,7 +211,7 @@ public class Main {
 
     public boolean checkSlot(int slot, Item[] item) {
 
-        if (slot == 0) {
+        if (slot == -1) {
             System.out.println("\tExiting");
             return false;
         }
@@ -227,6 +229,8 @@ public class Main {
         int price, quantity;
         float calories;
 
+        System.out.println("\n\tADD NEW ITEM");
+        System.out.println("==============================");
         System.out.print("\n\tItem Name: ");
         name = sc.nextLine();
         System.out.print("\tItem Price: ");
@@ -255,6 +259,9 @@ public class Main {
 
         item = vendo.getRegular().getItems();
 
+        System.out.println("\n\tREMOVE ITEM");
+        System.out.println("==============================");
+
         do {    
             main.displayItems(item);
             System.out.println("\nInput [0] to Exit");
@@ -262,29 +269,36 @@ public class Main {
             slot = sc.nextInt();
             sc.nextLine();
             
-            if (main.checkSlot(slot, item)){
+            if (main.checkSlot(slot - 1, item)){
                 vendo.removeItem(slot-1);
             }
 
         } while (slot < 0 || slot > item.length);       
     }
 
-    public void restockItem (Scanner sc, VendingMachine vendo, Main main) {
+    public int restockItem (Scanner sc, VendingMachine vendo, Main main) {
 
         int slot, quantity;
         Item[] item;
 
         item = vendo.getRegular().getItems();
 
+        System.out.println("\n\tRESTOCK ITEM");
+        System.out.println("==============================");
+
         do {    
             main.displayItems(item);
             System.out.println("\nInput [0] to Exit");
             System.out.print("Input Item Slot Number: ");
-
             slot = sc.nextInt();
 
-            if (main.checkSlot(slot, item)){
-                System.out.println("Free Space: " + (10 - item[slot].getQuantity()));
+            if(slot == 0){
+                System.out.println("\tExiting...");
+                return 0;
+            }
+
+            if (main.checkSlot(slot - 1, item)){
+                System.out.println("\n\tFree Space: " + (10 - item[slot -1].getQuantity()));
                 System.out.println("Input Quantity: ");
                 quantity = sc.nextInt();
 
@@ -292,12 +306,11 @@ public class Main {
                     System.out.println("\tItem restocked!");
                 else 
                     System.out.println("\tQuantity Overflow!");
-
-                
             }
 
-        } while (slot < 0 || slot > item.length || item[slot] == null);
-           
+        } while (slot < 0 || slot > item.length || item[slot -1] == null);
+
+        return 1;
     }
 
     public int setPrice (Scanner sc, VendingMachine vendo, Main main) {
@@ -306,6 +319,9 @@ public class Main {
         Item[] item;
 
         item = vendo.getRegular().getItems();
+
+        System.out.println("\n\tSET ITEM PRICE");
+        System.out.println("==============================");
 
         do {    
             main.displayItems(item);
@@ -330,7 +346,7 @@ public class Main {
 
 
         } while(slot < 0 || slot > item.length);
-        
+
         return 1;
     }
 
@@ -344,6 +360,9 @@ public class Main {
     public void addChange(Scanner sc, VendingMachine vendo, Main main) {
 
         int choice, quantity = 0;
+
+        System.out.println("\n\tADD CHANGE");
+        System.out.println("==============================");
 
         do {
             System.out.println("Choose Denomination: ");
