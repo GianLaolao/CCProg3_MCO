@@ -196,11 +196,11 @@ public class Main {
     public boolean checkSlot(int slot, Item[] item) {
 
         if (slot == -1) {
-            System.out.println("\tExiting");
+            System.out.println("\n\tExiting....");
             return false;
         }
         else if (slot < 0 || slot > item.length || item[slot] == null) {
-            System.out.println("\tInvalid Choice");
+            System.out.println("\n\tInvalid Choice");
             return false;
         }
 
@@ -226,13 +226,13 @@ public class Main {
         sc.nextLine();
 
         if (quantity < 1 || quantity > 10) {
-            System.out.println("\t\nQuantity should be 1 to 10");
+            System.out.println("\n\tQuantity should be 1 to 10");
         }
         else if(vendo.addItem(name, price, calories, quantity)) {
-            System.out.println("\tItem Added!");
+            System.out.println("\n\tItem Added!");
         }
         else {
-            System.out.println("\tItem Slots FULL!");
+            System.out.println("\n\tItem Slots FULL!");
         }
     }
 
@@ -389,11 +389,19 @@ public class Main {
         ArrayList<Record> record = new ArrayList<>();
         
         record = vendo.getRecords();
+        String indent = "                ";
     
-        System.out.println("\t\tStarting Inventory \tEnding Inventory \tQuantity Sold");
+        System.out.println("\t\t\tStarting Inventory \tEnding Inventory \tQuantity Sold");
 
         for (int i = 0; i < record.size(); i++) {
-            System.out.println(record.get(i).getItem().getName() + "\t" + record.get(i).getStartingInventory() + "\t" + record.get(i).getItem().getQuantity() + "\t" + record.get(i).getSold());
+        //    System.out.println(record.get(i).getItem().getName() + "\t\t" + record.get(i).getStartingInventory() + "\t\t" + record.get(i).getItem().getQuantity() + "\t\t" + record.get(i).getSold());
+            String output = record.get(i).getItem().getName();
+            output += indent.substring(0, indent.length() - output.length());
+            System.out.printf("%s \t%-15d \t%-15d \t%-17d\n",
+            output,
+            record.get(i).getStartingInventory(),
+            record.get(i).getItem().getQuantity(),
+            record.get(i).getSold());
         }
 
         System.out.println("\nTotal Sales: " + vendo.getTotalSales());
