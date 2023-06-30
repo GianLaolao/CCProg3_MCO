@@ -41,7 +41,7 @@ public class RegularVendo {
 
     public void restockItem(int quantity, Item item) {
 
-        item.addQuantity(quantity);
+        item.setQuantity(item.getQuantity() + quantity);
     }
 
     public void setItemPrice(int price, int slot) {

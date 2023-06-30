@@ -16,8 +16,8 @@ public class Item {
     public void setPrice(int price) {
         this.price = price;
     } 
-    public void addQuantity(int quantity) {
-        this.quantity += quantity;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public void sellItem (int quantity) {

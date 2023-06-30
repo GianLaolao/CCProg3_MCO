@@ -44,7 +44,7 @@ public class MoneyBox {
     public Cash getHundredPeso() {
         return hundredPeso;
     }
-
+    
     public int getTotal(){
 
         int total;

@@ -117,27 +117,39 @@ public class Main {
 
             check = checkSlot(slot - 1, item);
 
-            if (check)
-                System.out.print("\n\tEnter Itam Quantity: ");
-                quantity = sc.nextInt();
-                sc.nextLine();
+            if (check) {
 
-                if (quantity <= item[slot-1].getQuantity()) {
+                do {
+                    System.out.print("\n\tEnter Item Quantity: ");
+                    quantity = sc.nextInt();
+                    sc.nextLine();
 
+                    if (quantity > item[slot-1].getQuantity() || quantity < 0) {
+                            System.out.println("\tInvalid Item Quantity");
+                    }
+
+                } while (quantity > item[slot-1].getQuantity() || quantity < 0);
+                               
+                 do {
                     main.getPayment(sc, vendo);
+
+                    if (!vendo.checkUserMoney(slot, quantity))
+                        System.out.println("\tNot enough Money");
+
+                } while (!vendo.checkUserMoney(slot, quantity));
+                    
+                    int moneyPaid = vendo.getUserMoney().getTotal(); 
+                    MoneyBox change = vendo.produceChange(slot, quantity);
                     System.out.println("\tDispensing Item...");
                     Item dispensed = vendo.dispenseItem(slot, quantity);
+                    System.out.println("\tItem Dispensed...");
+                    main.displayTransacInfo(dispensed, change, moneyPaid);
                     
-                    //TODO
                 }
-                else {
-                    System.out.println("\tInvalid Item Quantity");
-                    check = !check;
-                }
-
-                //main.displayTransacInfo(dispensed, payment);
-            
         } while (!check); 
+
+        
+
         return 0;
     }
 
@@ -171,13 +183,20 @@ public class Main {
         return vendo.getUserMoney();
     }
 
-    public void displayTransacInfo(Item dispensed, int payment) {
+    public void displayTransacInfo(Item dispensed, MoneyBox change, int payment) {
 
         System.out.println("\nItem Bought: " + dispensed.getName());
         System.out.println("\tCalories: " + dispensed.getCalories());
-
-        //not done
-        //TODO
+        System.out.println("\nAmount Paid: " + payment);
+        System.out.println("Change: " + change.getTotal());
+        System.out.println("Change Summary: ");
+        System.out.println("    One Peso          : " + change.getOnePeso().getQuantity());
+        System.out.println("    Five Peso         : " + change.getFivePeso().getQuantity());
+        System.out.println("    Ten Peso          : " + change.getTenPeso().getQuantity());
+        System.out.println("    Twenty Peso       : " + change.getTwentyPeso().getQuantity());
+        System.out.println("    Fifty Peso        : " + change.getFiftyPeso().getQuantity());
+        System.out.println("    One Hundred Peso  : " + change.getHundredPeso().getQuantity());
+       
     }
 
     public void displayItems(Item[] item) {
