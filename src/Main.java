@@ -115,6 +115,9 @@ public class Main {
             System.out.print("Enter Slot Number: ");
             slot = sc.nextInt();
 
+            if(slot == 0)
+                return 0;
+
             check = checkSlot(slot - 1, item);
 
             if (check) {
@@ -127,33 +130,41 @@ public class Main {
                     if (quantity > item[slot-1].getQuantity() || quantity < 0) {
                             System.out.println("\tInvalid Item Quantity");
                     }
+                    else
+                        System.out.println("\nPrice: " + vendo.getRegular().getItem(slot -1).getPrice() * quantity);
 
                 } while (quantity > item[slot-1].getQuantity() || quantity < 0);
                                
                  do {
                     main.getPayment(sc, vendo);
 
-                    if (!vendo.checkUserMoney(slot, quantity))
+                    if (!vendo.checkUserMoney(slot - 1, quantity))
                         System.out.println("\tNot enough Money");
 
-                } while (!vendo.checkUserMoney(slot, quantity));
-                    
-                    int moneyPaid = vendo.getUserMoney().getTotal(); 
-                    MoneyBox change = vendo.produceChange(slot, quantity);
-                    System.out.println("\tDispensing Item...");
-                    Item dispensed = vendo.dispenseItem(slot, quantity);
-                    System.out.println("\tItem Dispensed...");
-                    main.displayTransacInfo(dispensed, change, moneyPaid);
-                    
+                } while (!vendo.checkUserMoney(slot - 1, quantity));
+                 
+                int moneyPaid = vendo.getUserMoney().getTotal(); 
+                MoneyBox change = vendo.produceChange(slot - 1, quantity);
+
+                if(change == null) {
+                    System.out.println("\tNot Enough Change. Transaction Canceled...");
+                    return 0;
                 }
+
+                System.out.println("\tDispensing Item...");
+                Item dispensed = vendo.dispenseItem(slot - 1, quantity);
+                System.out.println("\tItem Dispensed...");
+                main.displayTransacInfo(dispensed, change, moneyPaid);
+                    
+            }
         } while (!check); 
 
         
 
-        return 0;
+        return 1;
     }
 
-    public MoneyBox getPayment(Scanner sc, VendingMachine vendo){
+    public void getPayment(Scanner sc, VendingMachine vendo){
 
         int choice;
 
@@ -172,15 +183,15 @@ public class Main {
             switch(choice){
                 case 1: case 2: case 3: case 4: case 5: case 6:
                     vendo.takePayment(choice);
+                    break;
                 case 0:
                     System.out.println("\tPayment confirmed...");
+                    break;
                 default:
                     System.out.println("\tInvalid Input...");
             }
 
         } while (choice != 0);  
-
-        return vendo.getUserMoney();
     }
 
     public void displayTransacInfo(Item dispensed, MoneyBox change, int payment) {
@@ -204,10 +215,10 @@ public class Main {
         for (int i = 0; i < item.length; i++) {        
             if (item[i] != null) {
                 System.out.println("\nSlot Number " + (i+1)); 
-                System.out.println("Item: " + item[i].getName());
-                System.out.println("\tPrice: " + item[i].getPrice());
-                System.out.println("\tCalories: " + item[i].getCalories());
-                System.out.println("\tAvaliable: " + item[i].getQuantity());
+                System.out.println("Item: \t" + item[i].getName());
+                System.out.println("\tPrice: \t" + item[i].getPrice());
+                System.out.println("\tCalories: \t" + item[i].getCalories());
+                System.out.println("\tAvaliable: \t" + item[i].getQuantity());
             }
         }
     }
@@ -231,9 +242,18 @@ public class Main {
         String name;
         int price, quantity;
         float calories;
+        Item[] item = vendo.getRegular().getItems();
+        int freeSlot = 0;
+
+        for (int i = 0; i < item.length; i++) {
+            if (item[i] == null) 
+                freeSlot++;        
+        }
+
 
         System.out.println("\n\tADD NEW ITEM");
         System.out.println("==============================");
+        System.out.println("Free Slots: " + freeSlot);
         System.out.print("\n\tItem Name: ");
         name = sc.nextLine();
         System.out.print("\tItem Price: ");
@@ -369,13 +389,13 @@ public class Main {
 
         do {
 
-            System.out.println("Vendo Money: ");
-            System.out.println("One Peso Quantity:\t" + vendo.getVendoMoney().getOnePeso().getQuantity());
-            System.out.println("Five Peso Quantity:\t" + vendo.getVendoMoney().getFivePeso().getQuantity());
-            System.out.println("Ten Peso Quantity:\t" + vendo.getVendoMoney().getTenPeso().getQuantity());
-            System.out.println("Twenty Peso Quantity:\t" + vendo.getVendoMoney().getTwentyPeso().getQuantity());
-            System.out.println("Fifty Peso Quantity:\t" + vendo.getVendoMoney().getFiftyPeso().getQuantity());
-            System.out.println("One Hundred Peso Quantity:\t" + vendo.getVendoMoney().getHundredPeso().getQuantity());
+            System.out.println("\nVendo Money: ");
+            System.out.println("One Peso Quantity:\t\t: " + vendo.getVendoMoney().getOnePeso().getQuantity());
+            System.out.println("Five Peso Quantity:\t\t: " + vendo.getVendoMoney().getFivePeso().getQuantity());
+            System.out.println("Ten Peso Quantity:\t\t: " + vendo.getVendoMoney().getTenPeso().getQuantity());
+            System.out.println("Twenty Peso Quantity:\t\t: " + vendo.getVendoMoney().getTwentyPeso().getQuantity());
+            System.out.println("Fifty Peso Quantity:\t\t: " + vendo.getVendoMoney().getFiftyPeso().getQuantity());
+            System.out.println("One Hundred Peso Quantity:\t: " + vendo.getVendoMoney().getHundredPeso().getQuantity());
 
             System.out.println("\nChoose Denomination: ");
             System.out.println("[1] One Peso");
