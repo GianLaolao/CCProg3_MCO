@@ -11,9 +11,10 @@ public class Main {
         int choice;
 
         do {
-            System.out.println("\nOptions: [1] Create a Vending Machine");
-            System.out.println("         [2] Test a Vending Machine");
-            System.out.println("         [3] Exit");
+            System.out.println("\nVending Machine Options: ");
+            System.out.println("    [1] Create a Vending Machine");
+            System.out.println("    [2] Test a Vending Machine");
+            System.out.println("    [3] Exit");
             choice = sc.nextInt();
             sc.nextLine();
 
@@ -102,7 +103,6 @@ public class Main {
         Item[] item;
         item = vendo.getRegular().getItems();
         int slot, quantity;
-        MoneyBox payment;
         boolean check;
 
         System.out.println("\n\tTEST VENDING FEATURES");
@@ -124,7 +124,7 @@ public class Main {
 
                 if (quantity <= item[slot-1].getQuantity()) {
 
-                    payment = main.getPayment(sc, vendo);
+                    main.getPayment(sc, vendo);
                     System.out.println("\tDispensing Item...");
                     Item dispensed = vendo.dispenseItem(slot, quantity);
                     

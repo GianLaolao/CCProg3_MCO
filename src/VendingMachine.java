@@ -12,15 +12,6 @@ public class VendingMachine {
         regular = new RegularVendo();
     }
 
-    public MoneyBox transaction(int quantity, Item item) {
-    
-        int price = item.getPrice() * quantity;
-        
-        //take payment, calculate change, give change
-
-        return produceChange(price);
-    }
-
     public void takePayment(int type) {
 
         switch(type){
@@ -118,10 +109,12 @@ public class VendingMachine {
         }
     }
 
-    private MoneyBox produceChange(int price) {
+    private MoneyBox produceChange(int quantity, Item item) {
         //TODO
 
         MoneyBox change = new MoneyBox(); //stores change
+
+        int price = item.getPrice() * quantity;
         //calculate change and return change
 
         return change;
