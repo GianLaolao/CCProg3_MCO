@@ -1,5 +1,10 @@
 import java.util.*;
 
+/*
+ * A VendingMachine represents the vending machine. It contains the regular vending machine, 
+ * records, vending machine money, user money, and total sales. 
+ */
+
 public class VendingMachine {
     
     private RegularVendo regular = null;
@@ -7,11 +12,18 @@ public class VendingMachine {
     private MoneyBox vendoMoney = new MoneyBox();
     private MoneyBox userMoney = new MoneyBox();
     private int totalSales = 0;
-    
+
+/*
+ * creates a regular vending machine 
+ */
     public void createRegularVendo() {
         regular = new RegularVendo();
     }
 
+/* 
+ * takes payment from the user 
+ * @param type the money paid by user 
+ */
     public void takePayment(int type) {
 
         switch(type){
@@ -36,6 +48,12 @@ public class VendingMachine {
         }
     }
 
+/* 
+ * dispenses item to the user 
+ * @param slot the slot of the selected item 
+ * @param quantity the quantity of the selected item 
+ */
+
     public Item dispenseItem(int slot, int quantity) {
 
         Item bought = regular.dispenseItem(slot, quantity);
@@ -51,6 +69,13 @@ public class VendingMachine {
         return null;
     }
     
+/* 
+ * adds item to the vending machine 
+ * @param name the name of the item 
+ * @param price the price of the item 
+ * @param calories the amount of calories of the item 
+ * @param quantity the quantity of the item 
+ */
 
     public boolean addItem(String name, int price, float calories, int quantity) { 
         
@@ -61,6 +86,11 @@ public class VendingMachine {
         return regular.addItem(item);
     }
 
+/* 
+ * removes item from the vending machine 
+ * @param slot the slot occupied by the item being removed 
+ */
+
     public boolean removeItem(int slot) { 
 
         if (regular.getItem(slot) != null) {
@@ -70,6 +100,12 @@ public class VendingMachine {
         
         return false;
     }
+
+/* 
+ * restocks or replaces item of the inventory or vending machine 
+ * @param quantity the quantity of item to be restocked  
+ * @param slot the slot to be occupied for restocking 
+ */
 
     public boolean restockItem(int quantity, int slot) {
         
@@ -85,6 +121,12 @@ public class VendingMachine {
         return false;
     }
 
+/* 
+ * sets item price  
+ * @param price the set price for the selected item 
+ * @param slot the slot of the item selected 
+ */
+
     public boolean setItemPrice(int price, int slot){
 
         Item item = regular.getItem(slot);
@@ -96,6 +138,12 @@ public class VendingMachine {
            
         return false;
     }
+
+/* 
+ * adds money to the vending machine 
+ * @param quantity the quantity of vendoMoney  
+ * @param type the money added
+ */
 
     public void addMoney(int quantity, int type) {
         
@@ -115,6 +163,12 @@ public class VendingMachine {
         }
     }
 
+/*
+ * checks the money of the user 
+ * @param slot the slot of the item selected
+ * @param quantity the quantity of item bought by the user
+ */
+
     public boolean checkUserMoney(int slot, int quantity) {
 
         Item item = regular.getItem(slot);
@@ -126,6 +180,12 @@ public class VendingMachine {
 
         return true;
     }
+
+/* 
+ * produces money change for the user 
+ * @param slot the slot of the selected item 
+ * @param quantity the quantity of the selected item of the user 
+ */
 
     public MoneyBox produceChange(int slot, int quantity) {
 
@@ -244,6 +304,10 @@ public class VendingMachine {
         return changeBox;
     }
 
+/* 
+ * retrieves profit for the vending machine  
+ */
+
     public int retrieveProfit() {
 
         int profit;
@@ -260,18 +324,24 @@ public class VendingMachine {
         return profit;
     }
    
-    public RegularVendo getRegular() {
-        return regular;
+    public RegularVendo getRegular() { 
+        return regular; //returns the regular vending machine created by the user
     }
     public MoneyBox getVendoMoney() {
-        return vendoMoney;
+        return vendoMoney; //returns the available vending machine money
     }
     public MoneyBox getUserMoney() {
-        return userMoney;
+        return userMoney; //returns the money of the user 
     }
     public ArrayList<Record> getRecords() {
-        return records;
+        return records; //returns the vending machine records
     }
+
+    /* 
+     * returns the records of an item 
+     * @param item the item selected by the user for its records
+     */
+
     public Record getItemRecord(Item item) {
 
         for (int i = 0; i < records.size(); i++){
@@ -279,6 +349,11 @@ public class VendingMachine {
                 return records.get(i);
         }
         return null;
+
+    /* 
+     * computes for the total sales of the vending machine 
+     */
+    
     }
     public int getTotalSales() {
 
