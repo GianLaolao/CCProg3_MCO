@@ -7,7 +7,7 @@ public class RegularVendo {
         this.item = new Item[8];
     }
 
-    public boolean addItem(Item product) {
+    public boolean addItem(Item product) { //TODO
         if (item != null || item.length > 0) {
             for(int i = 0; i < item.length; i++){
                 if (item[i] == null){
@@ -19,14 +19,13 @@ public class RegularVendo {
         return false;   
     }
     
-    public boolean removeItem(int slot) {
+    public boolean removeItem(int slot) { //TODO
 
         if (item[slot] != null){
             item[slot] = null;
             return true;
         }
-       
-
+    
         return false;
     }
 

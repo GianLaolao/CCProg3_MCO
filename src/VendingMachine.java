@@ -52,7 +52,7 @@ public class VendingMachine {
     }
     
 
-    public boolean addItem(String name, int price, float calories, int quantity) {
+    public boolean addItem(String name, int price, float calories, int quantity) { //TODO
         
         Item item = new Item(name, price, calories, quantity);
         Record record = new Record(item);
@@ -61,7 +61,7 @@ public class VendingMachine {
         return regular.addItem(item);
     }
 
-    public boolean removeItem(int slot) {
+    public boolean removeItem(int slot) { //TODO
         return regular.removeItem(slot);
     }
 
