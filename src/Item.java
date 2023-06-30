@@ -33,8 +33,13 @@ public class Item {
     public void setPrice(int price) {
         this.price = price;
     } 
-    public void addQuantity(int quantity) {
-        this.quantity += quantity;
+
+    /*
+     * sets the quantity of the item
+     * @param quantity the quantity of the item
+     */
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     /*

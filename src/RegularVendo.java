@@ -16,7 +16,7 @@ public class RegularVendo {
     }
 
     public boolean addItem(Item product) {
-        if (item != null || item.length > 0) {
+        if (item != null) {
             for(int i = 0; i < item.length; i++){
                 if (item[i] == null){
                     item[i] = product;

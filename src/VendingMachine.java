@@ -52,17 +52,23 @@ public class VendingMachine {
     }
     
 
-    public boolean addItem(String name, int price, float calories, int quantity) { //TODO
+    public boolean addItem(String name, int price, float calories, int quantity) { 
         
         Item item = new Item(name, price, calories, quantity);
         Record record = new Record(item);
         records.add(record);
-        
+
         return regular.addItem(item);
     }
 
-    public boolean removeItem(int slot) { //TODO
-        return regular.removeItem(slot);
+    public boolean removeItem(int slot) { 
+
+        if (regular.getItem(slot) != null) {
+            regular.removeItem(slot);
+            return true;
+        }   
+        
+        return false;
     }
 
     public boolean restockItem(int quantity, int slot) {

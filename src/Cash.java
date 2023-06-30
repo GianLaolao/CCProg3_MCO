@@ -49,7 +49,7 @@ public class Cash{
     }
 
     /*
-     * creates setQuantity object for Cash 
+     * sets the quantity of cash object 
      * computes for the total cash of user at hand
      * @param quantity refers to quantity or denomination of cash
      */
