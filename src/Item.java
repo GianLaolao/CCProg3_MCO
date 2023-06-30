@@ -33,12 +33,6 @@ public class Item {
     public void setPrice(int price) {
         this.price = price;
     } 
-
-    /*
-     * adds quantity of item to the vending machine 
-     * @param quantity the quantity of the chosen item 
-     */
-
     public void addQuantity(int quantity) {
         this.quantity += quantity;
     }

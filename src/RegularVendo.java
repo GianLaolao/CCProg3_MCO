@@ -15,11 +15,6 @@ public class RegularVendo {
         this.item = new Item[8];
     }
 
-/*
- * adds item to the regular vending machine 
- * @param product 
- */
-
     public boolean addItem(Item product) {
         if (item != null || item.length > 0) {
             for(int i = 0; i < item.length; i++){
@@ -31,19 +26,14 @@ public class RegularVendo {
         }
         return false;   
     }
-
-/* 
- * removes item from the regular vending machine 
- * @param slot the slot opened for every item removed from the vending machine 
- */
+    
     public boolean removeItem(int slot) {
 
         if (item[slot] != null){
             item[slot] = null;
             return true;
         }
-       
-
+    
         return false;
     }
 
@@ -68,7 +58,7 @@ public class RegularVendo {
 
     public void restockItem(int quantity, Item item) {
 
-        item.addQuantity(quantity);
+        item.setQuantity(item.getQuantity() + quantity);
     }
 
 /*
