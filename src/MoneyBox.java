@@ -1,5 +1,5 @@
 public class MoneyBox {
-    
+    //declaration of denominations
     private Cash onePeso = new Cash(1);
     private Cash fivePeso = new Cash(5);
     private Cash tenPeso = new Cash(10);
@@ -7,6 +7,10 @@ public class MoneyBox {
     private Cash fiftyPeso = new Cash(50);
     private Cash hundredPeso = new Cash(100);
 
+/*
+ * sets the quantity on a specific denomination
+ * @param quantity the quantity to be added
+ */
     public void setOnePeso(int quantity) {
         this.onePeso.setQuantity(quantity);
     }
@@ -26,6 +30,9 @@ public class MoneyBox {
         this.hundredPeso.setQuantity(quantity);
     }
 
+/*
+ * returns the object of a specific denomination
+ */
     public Cash getOnePeso() {
         return onePeso;
     }
@@ -45,6 +52,10 @@ public class MoneyBox {
         return hundredPeso;
     }
     
+
+/*
+ * returns the total amount of money in the money box
+ */
     public int getTotal(){
 
         int total;

@@ -15,6 +15,11 @@ public class RegularVendo {
         this.item = new Item[8];
     }
 
+/*
+ * adds an item to an item array
+ * @param product an item object to be added
+ */
+
     public boolean addItem(Item product) {
         if (item != null) {
             for(int i = 0; i < item.length; i++){
@@ -26,7 +31,12 @@ public class RegularVendo {
         }
         return false;   
     }
-    
+
+/*
+ * removes an item in the item array
+ * @param slot the slot number of the item to be removed
+ */
+
     public boolean removeItem(int slot) {
 
         if (item[slot] != null){
