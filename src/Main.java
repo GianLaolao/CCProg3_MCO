@@ -131,7 +131,7 @@ public class Main {
                     sc.nextLine();
 
                     if (quantity == 0) {
-                        System.out.println("\n\tTransaction Cancelled...");
+                        System.out.println("\n\tSlot Empty. Transaction Cancelled...");
                         return 0;
                     }
 

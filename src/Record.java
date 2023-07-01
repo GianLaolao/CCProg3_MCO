@@ -52,7 +52,6 @@ public class Record {
         this.soldAmount = 0;
     }
 
-
 /* 
  * returns the item recorded 
  */
