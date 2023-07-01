@@ -327,7 +327,10 @@ public class Main {
             sc.nextLine();
             
             if (main.checkSlot(slot - 1, item)){
-                vendo.removeItem(slot-1);
+                if (vendo.removeItem(slot-1))
+                    System.out.println("\n\tItem removed...");
+                else
+                    System.out.println("\n\tRemoval failed...");
             }
 
         } while (slot < 0 || slot > item.length);       
