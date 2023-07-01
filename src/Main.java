@@ -130,8 +130,14 @@ public class Main {
                     quantity = sc.nextInt();
                     sc.nextLine();
 
+                    if (quantity == 0) {
+                        System.out.println("\n\tTransaction Cancelled...");
+                        return 0;
+                    }
+
                     if (quantity > item[slot-1].getQuantity() || quantity < 0) {
                             System.out.println("\tInvalid Item Quantity");
+                        
                     }
                 } while (quantity > item[slot-1].getQuantity() || quantity < 0);
                                
