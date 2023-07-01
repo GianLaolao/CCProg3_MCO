@@ -201,8 +201,8 @@ public class Main {
         System.out.println("\tItem Price: " + dispensed.getPrice());
         System.out.println("\tCalories: " + dispensed.getCalories());
         System.out.println("---------------------------------------");
-        System.out.println("\tQuantity: " + quantity);
-        System.out.println("\tGross Price: " + dispensed.getPrice() * quantity);
+        System.out.println("Quantity: " + quantity);
+        System.out.println("Gross Price: " + dispensed.getPrice() * quantity);
         System.out.println("\nAmount Paid: " + payment);
         System.out.println("---------------------------------------");
         System.out.println("\nChange Summary: ");
@@ -338,7 +338,7 @@ public class Main {
                     System.out.println("\tQuantity Overflow!");
             }
 
-        } while (slot < 0 || slot > item.length || item[slot -1] == null);
+        } while (slot < 0 || slot > item.length || item[slot -1] == null || slot != 0);
 
         return 1;
     }

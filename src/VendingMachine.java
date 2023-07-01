@@ -216,7 +216,7 @@ public class VendingMachine {
             if ((change / 100 != 0) && amount > vendoMoney.getHundredPeso().getQuantity()) {
                 change -= vendoMoney.getHundredPeso().getQuantity() * 100;
                 vendoMoney.setHundredPeso(0);
-                changeBox.setHundredPeso(amount);
+                changeBox.setHundredPeso(vendoMoney.getHundredPeso().getQuantity());
             }
             else if (change / 100 != 0) {
                 change -= amount * 100;
@@ -230,7 +230,7 @@ public class VendingMachine {
             if ((change / 50 != 0) && amount > vendoMoney.getFiftyPeso().getQuantity()) {
                 change -= vendoMoney.getFiftyPeso().getQuantity() * 50;
                 vendoMoney.setFiftyPeso(0);
-                changeBox.setFiftyPeso(amount);
+                changeBox.setFiftyPeso(vendoMoney.getFiftyPeso().getQuantity());
             }
             else if (change /50 != 0) {
                 change -= amount * 50;
@@ -244,7 +244,7 @@ public class VendingMachine {
             if ((change / 20 != 0) && amount > vendoMoney.getTwentyPeso().getQuantity()) {
                 change -= vendoMoney.getTwentyPeso().getQuantity() * 20;
                 vendoMoney.setTwentyPeso(0);
-                changeBox.setTwentyPeso(amount);
+                changeBox.setTwentyPeso(vendoMoney.getTwentyPeso().getQuantity());
             }
             else if (change / 20 != 0){
                 change -= amount * 20;
@@ -257,7 +257,7 @@ public class VendingMachine {
             if ((change / 10 != 0) && amount > vendoMoney.getTenPeso().getQuantity()) {
                 change -= vendoMoney.getTenPeso().getQuantity() * 10;
                 vendoMoney.setTenPeso(0);
-                changeBox.setTenPeso(amount);
+                changeBox.setTenPeso(vendoMoney.getTenPeso().getQuantity());
             }
             else if (change / 10 != 0){
                 change -= amount * 10;
@@ -271,7 +271,7 @@ public class VendingMachine {
             if ((change / 5 != 0) && amount > vendoMoney.getFivePeso().getQuantity()) {
                 change -= vendoMoney.getFivePeso().getQuantity() * 5;
                 vendoMoney.setFivePeso(0);
-                changeBox.setFivePeso(amount);
+                changeBox.setFivePeso(vendoMoney.getFivePeso().getQuantity());
             }
             else if (change / 5 != 0){
                 change -= amount * 5;
@@ -359,6 +359,7 @@ public class VendingMachine {
 
     /* 
      * computes for the total sales of the vending machine 
+     * returns the total sales
      */
     
     }
