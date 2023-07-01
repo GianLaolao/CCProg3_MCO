@@ -292,8 +292,8 @@ public class Main {
         quantity = sc.nextInt();
         sc.nextLine();
 
-        if (quantity < 1 || quantity > 10) {
-            System.out.println("\n\tQuantity should be 1 to 10");
+        if (quantity < 0 || quantity > 10) {
+            System.out.println("\n\tQuantity should be 0 to 10");
         }
         else if(vendo.addItem(name, price, calories, quantity)) {
             System.out.println("\n\tItem Added!");
