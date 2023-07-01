@@ -106,7 +106,7 @@ public class Main {
         boolean check;
 
         System.out.println("\n\tTEST VENDING FEATURES");
-        System.out.println("================================");
+        System.out.println("===================================");
 
         do {
             main.displayItems(item);
@@ -147,14 +147,14 @@ public class Main {
                 MoneyBox change = vendo.produceChange(slot - 1, quantity);
 
                 if(change == null) {
-                    System.out.println("\tNot Enough Change. Transaction Canceled...");
+                    System.out.println("\n\tNot Enough Change. Transaction Canceled...");
                     return 0;
                 }
 
                 System.out.println("\tDispensing Item...");
                 Item dispensed = vendo.dispenseItem(slot - 1, quantity);
                 System.out.println("\tItem Dispensed...");
-                main.displayTransacInfo(dispensed, change, moneyPaid);
+                main.displayTransacInfo(dispensed, change, moneyPaid, quantity);
                     
             }
         } while (!check); 
@@ -194,20 +194,26 @@ public class Main {
         } while (choice != 0);  
     }
 
-    public void displayTransacInfo(Item dispensed, MoneyBox change, int payment) {
+    public void displayTransacInfo(Item dispensed, MoneyBox change, int payment, int quantity) {
 
+        System.out.println("---------------------------------------");
         System.out.println("\nItem Bought: " + dispensed.getName());
+        System.out.println("\tItem Price: " + dispensed.getPrice());
         System.out.println("\tCalories: " + dispensed.getCalories());
+        System.out.println("---------------------------------------");
+        System.out.println("\tQuantity: " + quantity);
+        System.out.println("\tGross Price: " + dispensed.getPrice() * quantity);
         System.out.println("\nAmount Paid: " + payment);
-        System.out.println("Change: " + change.getTotal());
-        System.out.println("Change Summary: ");
+        System.out.println("---------------------------------------");
+        System.out.println("\nChange Summary: ");
         System.out.println("    One Peso          : " + change.getOnePeso().getQuantity());
         System.out.println("    Five Peso         : " + change.getFivePeso().getQuantity());
         System.out.println("    Ten Peso          : " + change.getTenPeso().getQuantity());
         System.out.println("    Twenty Peso       : " + change.getTwentyPeso().getQuantity());
         System.out.println("    Fifty Peso        : " + change.getFiftyPeso().getQuantity());
         System.out.println("    One Hundred Peso  : " + change.getHundredPeso().getQuantity());
-       
+        System.out.println("\nTotal Change: " + change.getTotal());
+        System.out.println("---------------------------------------");
     }
 
     public void displayItems(Item[] item) {
@@ -216,9 +222,10 @@ public class Main {
             if (item[i] != null) {
                 System.out.println("\nSlot Number " + (i+1)); 
                 System.out.println("Item: \t" + item[i].getName());
-                System.out.println("\tPrice: \t" + item[i].getPrice());
-                System.out.println("\tCalories: \t" + item[i].getCalories());
-                System.out.println("\tAvaliable: \t" + item[i].getQuantity());
+                System.out.println("\n   Price: \t" + item[i].getPrice());
+                System.out.println("   Calories: \t" + item[i].getCalories());
+                System.out.println("   Avaliable: \t" + item[i].getQuantity());
+                System.out.println("--------------------------");
             }
         }
     }
@@ -431,7 +438,7 @@ public class Main {
         String indent = "                ";
     
         System.out.println("\t\t\tStarting Inventory \tEnding Inventory \tQuantity Sold");
-
+        System.out.println("-------------------------------------------------------------------------------");
         for (int i = 0; i < record.size(); i++) {
         //    System.out.println(record.get(i).getItem().getName() + "\t\t" + record.get(i).getStartingInventory() + "\t\t" + record.get(i).getItem().getQuantity() + "\t\t" + record.get(i).getSold());
             String output = record.get(i).getItem().getName();

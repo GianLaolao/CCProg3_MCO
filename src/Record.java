@@ -24,7 +24,7 @@ public class Record {
  * @param sold the number of items sold 
  */
     public void setSold(int sold) {
-        this.sold += sold;
+        this.sold = sold;
     }
 
 /* 

@@ -61,7 +61,7 @@ public class VendingMachine {
         
         if (bought != null && record != null) {
 
-            record.setSold(quantity);
+            record.setSold(record.getSold() + quantity);
             return bought;
             
         }
@@ -203,13 +203,6 @@ public class VendingMachine {
             return null;
         }
 
-        addMoney(userMoney.getOnePeso().getQuantity(), 1);
-        addMoney(userMoney.getFivePeso().getQuantity(), 2);
-        addMoney(userMoney.getTenPeso().getQuantity(), 3);
-        addMoney(userMoney.getTwentyPeso().getQuantity(), 4);
-        addMoney(userMoney.getFiftyPeso().getQuantity(), 5);
-        addMoney(userMoney.getHundredPeso().getQuantity(), 6);
-
         userMoney.setOnePeso(0);
         userMoney.setFivePeso(0);
         userMoney.setTenPeso(0);
@@ -217,105 +210,105 @@ public class VendingMachine {
         userMoney.setFiftyPeso(0);
         userMoney.setHundredPeso(0);
 
-        do {
-            if (vendoMoney.getHundredPeso().getQuantity() != 0){
-
-                int amount = change / 100;
-
-                if ((change / 100 != 0) && amount > vendoMoney.getHundredPeso().getQuantity()) {
-                    change -= vendoMoney.getHundredPeso().getQuantity() * 100;
-                    vendoMoney.setHundredPeso(0);
-                    changeBox.setHundredPeso(amount);
-                }
-                else if (change / 100 != 0) {
-                    change -= amount * 100;
-                    vendoMoney.setHundredPeso(vendoMoney.getHundredPeso().getQuantity() - amount);
-                    changeBox.setHundredPeso(amount);
-                }
-                
+    
+        if (vendoMoney.getHundredPeso().getQuantity() != 0){
+            int amount = change / 100;
+            if ((change / 100 != 0) && amount > vendoMoney.getHundredPeso().getQuantity()) {
+                change -= vendoMoney.getHundredPeso().getQuantity() * 100;
+                vendoMoney.setHundredPeso(0);
+                changeBox.setHundredPeso(amount);
             }
-            if (vendoMoney.getFiftyPeso().getQuantity() != 0){
-
-                int amount = change / 50;
-
-                if ((change / 50 != 0) && amount > vendoMoney.getFiftyPeso().getQuantity()) {
-                    change -= vendoMoney.getFiftyPeso().getQuantity() * 50;
-                    vendoMoney.setFiftyPeso(0);
-                    changeBox.setFiftyPeso(amount);
-                }
-                else if (change /50 != 0) {
-                    change -= amount * 50;
-                    vendoMoney.setFiftyPeso(vendoMoney.getFiftyPeso().getQuantity() - amount);
-                    changeBox.setFiftyPeso(amount);
-                }
-                
+            else if (change / 100 != 0) {
+                change -= amount * 100;
+                vendoMoney.setHundredPeso(vendoMoney.getHundredPeso().getQuantity() - amount);
+                changeBox.setHundredPeso(amount);
             }
-            if (vendoMoney.getTwentyPeso().getQuantity() != 0){
-
-                int amount = change / 20;
-
-                if ((change / 20 != 0) && amount > vendoMoney.getTwentyPeso().getQuantity()) {
-                    change -= vendoMoney.getTwentyPeso().getQuantity() * 20;
-                    vendoMoney.setTwentyPeso(0);
-                    changeBox.setTwentyPeso(amount);
-                }
-                else if (change / 20 != 0){
-                    change -= amount * 20;
-                    vendoMoney.setTwentyPeso(vendoMoney.getTwentyPeso().getQuantity() - amount);
-                    changeBox.setTwentyPeso(amount);
-                }
+            
+        }
+        if (vendoMoney.getFiftyPeso().getQuantity() != 0){
+            int amount = change / 50;
+            if ((change / 50 != 0) && amount > vendoMoney.getFiftyPeso().getQuantity()) {
+                change -= vendoMoney.getFiftyPeso().getQuantity() * 50;
+                vendoMoney.setFiftyPeso(0);
+                changeBox.setFiftyPeso(amount);
             }
-            if (vendoMoney.getTenPeso().getQuantity() != 0){
-
-                int amount = change / 10;
-
-                if ((change / 10 != 0) && amount > vendoMoney.getTenPeso().getQuantity()) {
-                    change -= vendoMoney.getTenPeso().getQuantity() * 10;
-                    vendoMoney.setTenPeso(0);
-                    changeBox.setTenPeso(amount);
-                }
-                else if (change / 10 != 0){
-                    change -= amount * 10;
-                    vendoMoney.setTenPeso(vendoMoney.getTenPeso().getQuantity() - amount);
-                    changeBox.setTenPeso(amount);
-                }
-               
+            else if (change /50 != 0) {
+                change -= amount * 50;
+                vendoMoney.setFiftyPeso(vendoMoney.getFiftyPeso().getQuantity() - amount);
+                changeBox.setFiftyPeso(amount);
             }
-            if (vendoMoney.getFivePeso().getQuantity() != 0){
-
-                int amount = change / 5;
-
-                if ((change / 5 != 0) && amount > vendoMoney.getFivePeso().getQuantity()) {
-                    change -= vendoMoney.getFivePeso().getQuantity() * 5;
-                    vendoMoney.setFivePeso(0);
-                    changeBox.setFivePeso(amount);
-                }
-                else if (change / 5 != 0){
-                    change -= amount * 5;
-                    vendoMoney.setFivePeso(vendoMoney.getFivePeso().getQuantity() - amount);
-                    changeBox.setFivePeso(amount);
-                }
-                
+            
+        }
+        if (vendoMoney.getTwentyPeso().getQuantity() != 0){
+            int amount = change / 20;
+            if ((change / 20 != 0) && amount > vendoMoney.getTwentyPeso().getQuantity()) {
+                change -= vendoMoney.getTwentyPeso().getQuantity() * 20;
+                vendoMoney.setTwentyPeso(0);
+                changeBox.setTwentyPeso(amount);
             }
-            if (vendoMoney.getOnePeso().getQuantity() != 0){
-
-                int amount = change / 1;
-
-                if ((change / 1 != 0) && amount > vendoMoney.getOnePeso().getQuantity()) {
-                    change -= vendoMoney.getOnePeso().getQuantity();
-                    vendoMoney.setOnePeso(0);
-                    changeBox.setOnePeso(amount);
-                }
-                else if (change / 1 != 0){
-                    change -= amount;
-                    vendoMoney.setOnePeso(vendoMoney.getOnePeso().getQuantity() - amount);
-                    changeBox.setOnePeso(amount);
-                }
-                
+            else if (change / 20 != 0){
+                change -= amount * 20;
+                vendoMoney.setTwentyPeso(vendoMoney.getTwentyPeso().getQuantity() - amount);
+                changeBox.setTwentyPeso(amount);
             }
-        } while (change != 0);
+        }
+        if (vendoMoney.getTenPeso().getQuantity() != 0){
+            int amount = change / 10;
+            if ((change / 10 != 0) && amount > vendoMoney.getTenPeso().getQuantity()) {
+                change -= vendoMoney.getTenPeso().getQuantity() * 10;
+                vendoMoney.setTenPeso(0);
+                changeBox.setTenPeso(amount);
+            }
+            else if (change / 10 != 0){
+                change -= amount * 10;
+                vendoMoney.setTenPeso(vendoMoney.getTenPeso().getQuantity() - amount);
+                changeBox.setTenPeso(amount);
+            }
+           
+        }
+        if (vendoMoney.getFivePeso().getQuantity() != 0){
+            int amount = change / 5;
+            if ((change / 5 != 0) && amount > vendoMoney.getFivePeso().getQuantity()) {
+                change -= vendoMoney.getFivePeso().getQuantity() * 5;
+                vendoMoney.setFivePeso(0);
+                changeBox.setFivePeso(amount);
+            }
+            else if (change / 5 != 0){
+                change -= amount * 5;
+                vendoMoney.setFivePeso(vendoMoney.getFivePeso().getQuantity() - amount);
+                changeBox.setFivePeso(amount);
+            }
+            
+        }
+        if (vendoMoney.getOnePeso().getQuantity() != 0){
+            int amount = change / 1;
+            if ((change / 1 != 0) && amount > vendoMoney.getOnePeso().getQuantity()) {
+                change -= vendoMoney.getOnePeso().getQuantity();
+                vendoMoney.setOnePeso(0);
+                changeBox.setOnePeso(amount);
+            }
+            else if (change / 1 != 0){
+                change -= amount;
+                vendoMoney.setOnePeso(vendoMoney.getOnePeso().getQuantity() - amount);
+                changeBox.setOnePeso(amount);
+            }
+            
+        }
 
-        return changeBox;
+
+        if (change != 0)
+            return null;
+        else {
+            addMoney(userMoney.getOnePeso().getQuantity(), 1);
+            addMoney(userMoney.getFivePeso().getQuantity(), 2);
+            addMoney(userMoney.getTenPeso().getQuantity(), 3);
+            addMoney(userMoney.getTwentyPeso().getQuantity(), 4);
+            addMoney(userMoney.getFiftyPeso().getQuantity(), 5);
+            addMoney(userMoney.getHundredPeso().getQuantity(), 6);
+
+            return changeBox;
+        }
+        
     }
 
 /* 
