@@ -15,8 +15,13 @@ public class VendingMachine {
 /*
  * creates a regular vending machine 
  */
-    public void createRegularVendo() {
-        regular = new RegularVendo();
+    public boolean createRegularVendo() {
+        this.regular = new RegularVendo();
+
+        if(this.regular != null)
+            return true;
+        
+        return false;
     }
 
 /* 

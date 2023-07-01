@@ -52,7 +52,10 @@ public class Main {
 
             switch(choice) {
                 case 1:
-                    vendo.createRegularVendo();
+                    if(vendo.createRegularVendo())
+                        System.out.println("\n\tVending Machine created...");
+                    else
+                        System.out.println("\t\nCreation failed...");
                     break;
                 case 2:
                     System.out.println("\tCOMING SOON");
