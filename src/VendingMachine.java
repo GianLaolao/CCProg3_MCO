@@ -11,7 +11,6 @@ public class VendingMachine {
     private ArrayList<Record> records = new ArrayList<>();
     private MoneyBox vendoMoney = new MoneyBox();
     private MoneyBox userMoney = new MoneyBox();
-    private int totalSales = 0;
 
 /*
  * creates a regular vending machine 
@@ -62,6 +61,7 @@ public class VendingMachine {
         if (bought != null && record != null) {
 
             record.setSold(record.getSold() + quantity);
+            record.setSoldAmount(quantity);
             return bought;
             
         }
@@ -95,6 +95,7 @@ public class VendingMachine {
 
         if (regular.getItem(slot) != null) {
             regular.removeItem(slot);
+            records.remove(slot);
             return true;
         }   
         
@@ -110,11 +111,14 @@ public class VendingMachine {
     public boolean restockItem(int quantity, int slot) {
         
         Item item = regular.getItem(slot);
+        Record itemRecord = getItemRecord(item);
 
         if (10 - item.getQuantity() >= quantity) {
             regular.restockItem(quantity, item);
-            getItemRecord(item).setStartingInventory();
-            getItemRecord(item).setSold(0);
+            itemRecord.setStartingInventory();
+            itemRecord.setSold(0);
+            itemRecord.resetSoldAmount();
+
             return true;
         }
             
@@ -202,21 +206,13 @@ public class VendingMachine {
         if(change > vendoMoney.getTotal()) {
             return null;
         }
-
-        userMoney.setOnePeso(0);
-        userMoney.setFivePeso(0);
-        userMoney.setTenPeso(0);
-        userMoney.setTwentyPeso(0);
-        userMoney.setFiftyPeso(0);
-        userMoney.setHundredPeso(0);
-
     
         if (vendoMoney.getHundredPeso().getQuantity() != 0){
             int amount = change / 100;
             if ((change / 100 != 0) && amount > vendoMoney.getHundredPeso().getQuantity()) {
                 change -= vendoMoney.getHundredPeso().getQuantity() * 100;
-                vendoMoney.setHundredPeso(0);
                 changeBox.setHundredPeso(vendoMoney.getHundredPeso().getQuantity());
+                vendoMoney.setHundredPeso(0);
             }
             else if (change / 100 != 0) {
                 change -= amount * 100;
@@ -229,8 +225,8 @@ public class VendingMachine {
             int amount = change / 50;
             if ((change / 50 != 0) && amount > vendoMoney.getFiftyPeso().getQuantity()) {
                 change -= vendoMoney.getFiftyPeso().getQuantity() * 50;
-                vendoMoney.setFiftyPeso(0);
                 changeBox.setFiftyPeso(vendoMoney.getFiftyPeso().getQuantity());
+                vendoMoney.setFiftyPeso(0);
             }
             else if (change /50 != 0) {
                 change -= amount * 50;
@@ -243,8 +239,8 @@ public class VendingMachine {
             int amount = change / 20;
             if ((change / 20 != 0) && amount > vendoMoney.getTwentyPeso().getQuantity()) {
                 change -= vendoMoney.getTwentyPeso().getQuantity() * 20;
-                vendoMoney.setTwentyPeso(0);
                 changeBox.setTwentyPeso(vendoMoney.getTwentyPeso().getQuantity());
+                vendoMoney.setTwentyPeso(0);
             }
             else if (change / 20 != 0){
                 change -= amount * 20;
@@ -256,8 +252,8 @@ public class VendingMachine {
             int amount = change / 10;
             if ((change / 10 != 0) && amount > vendoMoney.getTenPeso().getQuantity()) {
                 change -= vendoMoney.getTenPeso().getQuantity() * 10;
-                vendoMoney.setTenPeso(0);
                 changeBox.setTenPeso(vendoMoney.getTenPeso().getQuantity());
+                vendoMoney.setTenPeso(0);
             }
             else if (change / 10 != 0){
                 change -= amount * 10;
@@ -270,8 +266,8 @@ public class VendingMachine {
             int amount = change / 5;
             if ((change / 5 != 0) && amount > vendoMoney.getFivePeso().getQuantity()) {
                 change -= vendoMoney.getFivePeso().getQuantity() * 5;
-                vendoMoney.setFivePeso(0);
                 changeBox.setFivePeso(vendoMoney.getFivePeso().getQuantity());
+                vendoMoney.setFivePeso(0);
             }
             else if (change / 5 != 0){
                 change -= amount * 5;
@@ -306,11 +302,25 @@ public class VendingMachine {
             addMoney(userMoney.getFiftyPeso().getQuantity(), 5);
             addMoney(userMoney.getHundredPeso().getQuantity(), 6);
 
+            resetUserMoney();
+
             return changeBox;
         }
         
     }
+    /*
+     * resets userMoney quantity for each denomination to 0
+     */
+    public void resetUserMoney() {
+        userMoney.setOnePeso(0);
+        userMoney.setFivePeso(0);
+        userMoney.setTenPeso(0);
+        userMoney.setTwentyPeso(0);
+        userMoney.setFiftyPeso(0);
+        userMoney.setHundredPeso(0);
+    }
 
+    
 /* 
  * retrieves profit for the vending machine  
  */
@@ -352,7 +362,7 @@ public class VendingMachine {
     public Record getItemRecord(Item item) {
 
         for (int i = 0; i < records.size(); i++){
-            if (records.get(i).getItem().getName() == item.getName())
+            if (records.get(i).getItem().getName().contains(item.getName()))
                 return records.get(i);
         }
         return null;
@@ -365,8 +375,9 @@ public class VendingMachine {
     }
     public int getTotalSales() {
 
+        int totalSales = 0;
         for(int i = 0; i < records.size(); i++) {
-            totalSales += (records.get(i).getSold() * records.get(i).getItem().getPrice());
+            totalSales += (records.get(i).getSoldAmount());
         }
 
         return totalSales;

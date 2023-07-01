@@ -130,19 +130,24 @@ public class Main {
                     if (quantity > item[slot-1].getQuantity() || quantity < 0) {
                             System.out.println("\tInvalid Item Quantity");
                     }
-                    else
-                        System.out.println("\nPrice: " + vendo.getRegular().getItem(slot -1).getPrice() * quantity);
-
                 } while (quantity > item[slot-1].getQuantity() || quantity < 0);
                                
-                 do {
-                    main.getPayment(sc, vendo);
-
-                    if (!vendo.checkUserMoney(slot - 1, quantity))
-                        System.out.println("\tNot enough Money");
-
-                } while (!vendo.checkUserMoney(slot - 1, quantity));
-                 
+                
+                if (main.getPayment(sc, vendo, slot - 1, quantity) == 8) {
+                    MoneyBox change = vendo.getUserMoney();
+                    System.out.println("\tMoney Returned...");
+                    System.out.println("----------------------");
+                    System.out.println("    One Peso          : " + change.getOnePeso().getQuantity());
+                    System.out.println("    Five Peso         : " + change.getFivePeso().getQuantity());
+                    System.out.println("    Ten Peso          : " + change.getTenPeso().getQuantity());
+                    System.out.println("    Twenty Peso       : " + change.getTwentyPeso().getQuantity());
+                    System.out.println("    Fifty Peso        : " + change.getFiftyPeso().getQuantity());
+                    System.out.println("    One Hundred Peso  : " + change.getHundredPeso().getQuantity());
+                    System.out.println("\nTotal: " + change.getTotal());
+                    vendo.resetUserMoney();
+                    return 0;
+                }
+                    
                 int moneyPaid = vendo.getUserMoney().getTotal(); 
                 MoneyBox change = vendo.produceChange(slot - 1, quantity);
 
@@ -164,19 +169,21 @@ public class Main {
         return 1;
     }
 
-    public void getPayment(Scanner sc, VendingMachine vendo){
+    public int getPayment(Scanner sc, VendingMachine vendo, int slot, int quantity){
 
         int choice;
-
+        boolean check = false;
         do {
-            System.out.println("\nCurrent Money: " + vendo.getUserMoney().getTotal());
+            System.out.println("\nPrice: " + vendo.getRegular().getItem(slot).getPrice() * quantity);
+            System.out.println("Current Money: " + vendo.getUserMoney().getTotal());
             System.out.println("\nInput Payment: [1] One Peso (1)");
             System.out.println("               [2] Five Peso (5)");
             System.out.println("               [3] Ten Peso (10)");
             System.out.println("               [4] Twenty Peso (20)");
             System.out.println("               [5] Fifty Peso (50)");
             System.out.println("               [6] One Hundred Peso (100)");
-            System.out.println("               [0] Confirm Payment");
+            System.out.println("\n               [7] Confirm Payment");
+            System.out.println("               [8] Cancel Payment");
             choice = sc.nextInt();
             sc.nextLine();
 
@@ -184,14 +191,25 @@ public class Main {
                 case 1: case 2: case 3: case 4: case 5: case 6:
                     vendo.takePayment(choice);
                     break;
-                case 0:
-                    System.out.println("\tPayment confirmed...");
+                case 7:
+                    if(vendo.checkUserMoney(slot, quantity)) {
+                        System.out.println("\tPayment confirmed...");
+                        check = true;
+                    }
+                    else
+                        System.out.println("\tNot enough Money");
+                    break;
+                case 8:
+                    System.out.println("\tTransaction Cancelled...");
+                    check = true;
                     break;
                 default:
                     System.out.println("\tInvalid Input...");
             }
 
-        } while (choice != 0);  
+        } while (!check);  
+
+        return choice;
     }
 
     public void displayTransacInfo(Item dispensed, MoneyBox change, int payment, int quantity) {
@@ -468,7 +486,7 @@ public class Main {
             System.out.println("\t[5] Collect Profit");
             System.out.println("\t[6] Add Change");
             System.out.println("\t[7] Show Transaction Summary");
-            System.out.println("\t[8] Exit");
+            System.out.println("\t[0] Exit");
             choice = sc.nextInt();
             sc.nextLine();
 
@@ -494,13 +512,13 @@ public class Main {
                 case 7:
                     main.showSummary(vendo, main);
                     break;
-                case 8:
+                case 0:
                     System.out.println("\tExiting....");
                     break;
                 default:
                     System.out.println("\tInvalid Option...");
             }
-        } while (choice != 8);
+        } while (choice != 0);
     }
 
 }
